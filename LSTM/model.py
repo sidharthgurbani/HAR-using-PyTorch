@@ -1,17 +1,21 @@
 import warnings
 warnings.filterwarnings('ignore')
 
-import configparser
+#import configparser
 import torch
 from torch import nn
 import torch.nn.functional as F
 
 
-config = configparser.ConfigParser()
-config.read('project.properties')
-n_classes = int(config.get('InputParameters', 'n_classes'))
-n_input = int(config.get('InputParameters', 'n_input'))
-n_hidden = int(config.get('InputParameters', 'n_hidden'))
+#config = configparser.ConfigParser()
+#config.read('project.properties')
+#n_classes = int(config.get('InputParameters', 'n_classes'))
+#n_input = int(config.get('InputParameters', 'n_input'))
+#n_hidden = int(config.get('InputParameters', 'n_hidden'))
+
+n_classes = 6
+n_input = 9
+n_hidden = 32
 
 class LSTMModel(nn.Module):
 

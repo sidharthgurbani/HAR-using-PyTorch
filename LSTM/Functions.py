@@ -1,10 +1,10 @@
 import numpy as np
-import configparser
+#import configparser 
 
-config = configparser.ConfigParser()
-config.read('project.properties')
-n_classes = int(config.get('InputParameters', 'n_classes'))
-
+#config = configparser.ConfigParser()
+#config.read('project.properties')
+#n_classes = int(config.get('InputParameters', 'n_classes'))
+n_classes = 6
 # Define function to generate batches of a particular size
 
 def extract_batch_size(_train, step, batch_size):

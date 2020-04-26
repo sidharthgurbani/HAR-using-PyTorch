@@ -7,7 +7,7 @@ import numpy as np
 from test import test
 from Functions import extract_batch_size
 
-def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001, momentum=0.9):
+def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001):
     print("\n\n********** Running training! ************\n\n")
     opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
     criterion = nn.CrossEntropyLoss()
