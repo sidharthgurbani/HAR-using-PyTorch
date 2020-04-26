@@ -39,7 +39,7 @@ LABELS = [
 
 TRAIN = "train/"
 TEST = "test/"
-DATASET_PATH = "../../"
+DATASET_PATH = "../../../"
 
 X_train_signals_paths = [
     DATASET_PATH + TRAIN + "Inertial Signals/" + signal + "train.txt" for signal in INPUT_SIGNAL_TYPES
