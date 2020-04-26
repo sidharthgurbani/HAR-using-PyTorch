@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings('ignore')
 
-import configparser
+#import configparser
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,8 +9,8 @@ from loadDataset import load_X, load_y
 from train import train
 from model import LSTMModel, init_weights
 
-config = configparser.ConfigParser()
-config.read('project.properties')
+#config = configparser.ConfigParser()
+#config.read('project.properties')
 
 # Useful Constants
 
@@ -53,8 +53,11 @@ y_test_path = DATASET_PATH + TEST + "y_test.txt"
 
 # LSTM Neural Network's internal structure
 
-n_hidden = int(config.get('InputParameters', 'n_hidden'))  # Hidden layer num of features
-n_classes = int(config.get('InputParameters', 'n_classes'))  # Total classes (should go up, or should go down)
+#n_hidden = int(config.get('InputParameters', 'n_hidden'))  # Hidden layer num of features
+#n_classes = int(config.get('InputParameters', 'n_classes'))  # Total classes (should go up, or should go down)
+
+n_hidden = 32
+n_classes = 6
 
 # Training
 
