@@ -70,7 +70,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
         print("Epoch: {}/{}...".format(epoch + 1, epochs),
               ' ' * 16 + "Train Loss: {:.4f}".format(train_loss_avg),
               "Train accuracy: {:.4f}...".format(train_accuracy_avg))
-        test_loss, test_f1score, test_accuracy = test(net, X_test, y_test, criterion)
+        test_loss, test_f1score, test_accuracy = test(net, X_test, y_test, criterion, test_batch=batch_size)
         epoch_test_losses.append(test_loss)
         epoch_test_acc.append(test_accuracy)
         if ((epoch+1) % 10 == 0):

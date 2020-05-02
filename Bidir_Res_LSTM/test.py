@@ -6,14 +6,11 @@ import numpy as np
 import sklearn.metrics as metrics
 from Functions import extract_batch_size
 
-def test(net, X_test, y_test, criterion):
+def test(net, X_test, y_test, criterion, test_batch=64):
 
-
-    
     net.eval()
     test_losses = []
     test_len = len(X_test)
-    test_batch = 64
     test_h = net.init_hidden(test_batch)
     test_accuracy = 0
     test_f1score = 0
