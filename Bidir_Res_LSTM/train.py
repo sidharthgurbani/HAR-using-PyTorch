@@ -5,11 +5,12 @@ import torch
 from torch import nn
 import numpy as np
 from test import test
-from Functions import extract_batch_size
+from Functions import extract_batch_size, getLRScheduler
 
 def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001):
     print("\n\n********** Running training! ************\n\n")
     opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
+    sched = getLRScheduler(optimer=opt)
     criterion = nn.CrossEntropyLoss()
 
     #if (train_on_gpu):
@@ -61,7 +62,8 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
             opt.step()
             step += 1
 
-        train_loss_avg = np.mean(train_losses)
+        sched.step()
+	train_loss_avg = np.mean(train_losses)
         train_accuracy_avg = train_accuracy/(step-1)
         epoch_train_losses.append(train_loss_avg)
         epoch_train_acc.append(train_accuracy_avg)
