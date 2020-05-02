@@ -63,7 +63,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
             step += 1
 
         sched.step()
-	train_loss_avg = np.mean(train_losses)
+        train_loss_avg = np.mean(train_losses)
         train_accuracy_avg = train_accuracy/(step-1)
         epoch_train_losses.append(train_loss_avg)
         epoch_train_acc.append(train_accuracy_avg)
