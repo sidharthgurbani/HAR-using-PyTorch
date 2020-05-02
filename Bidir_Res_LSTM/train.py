@@ -7,7 +7,7 @@ import numpy as np
 from test import test
 from Functions import extract_batch_size, getLRScheduler
 
-def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001):
+def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.005):
     print("\n\n********** Running training! ************\n\n")
     opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
     sched = getLRScheduler(optimizer=opt)

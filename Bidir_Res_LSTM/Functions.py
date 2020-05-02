@@ -30,8 +30,8 @@ def one_hot_vector(y_, n_classes=n_classes):
     return np.eye(n_classes)[np.array(y_, dtype=np.int32)]  # Returns FLOATS
 
 def getLRScheduler(optimizer):
-    n_epochs = 10
-    n_epochs_decay = 90
+    n_epochs = 30
+    n_epochs_decay = 70
     def lambdaRule(epoch):
         lr_l = 1.0 - max(0, epoch - n_epochs) / float(n_epochs_decay + 1)
         return lr_l
