@@ -29,7 +29,7 @@ def one_hot_vector(y_, n_classes=n_classes):
     y_ = y_.reshape(len(y_))
     return np.eye(n_classes)[np.array(y_, dtype=np.int32)]  # Returns FLOATS
 
-def getLRSchedular(optimizer):
+def getLRScheduler(optimizer):
     n_epochs = 20
     n_epochs_decay = 180
     def lambdaRule(epoch):
