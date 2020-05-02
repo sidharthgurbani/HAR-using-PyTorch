@@ -28,7 +28,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
     for epoch in range(epochs):
         train_losses = []
         step = 1
-        batch_size = 64
+        batch_size = 100
 
         h = net.init_hidden(batch_size)
 
@@ -48,7 +48,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
             h = tuple([each.data for each in h])
             opt.zero_grad()
 
-            output, h = net(inputs.float(), h)
+            output = net(inputs.float(), h)
             # print("lenght of inputs is {} and target value is {}".format(inputs.size(), targets.size()))
             train_loss = criterion(output, targets.long())
             train_losses.append(train_loss.item())

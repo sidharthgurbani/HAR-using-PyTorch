@@ -38,8 +38,9 @@ class BiDirResidual_LSTMModel(nn.Module):
         self.bidir_lstm1 = nn.LSTM(n_input, int(n_hidden / 2), n_layers, bidirectional=True, dropout=self.drop_prob)
         self.bidir_lstm2 = nn.LSTM(n_hidden, int(n_hidden / 2), n_layers, bidirectional=True, dropout=self.drop_prob)
         self.fc = nn.Linear(n_hidden, n_classes)
-        self.BatchNorm = nn.BatchNorm1d(64)
+        self.BatchNorm = nn.BatchNorm1d(100)
         self.dropout = nn.Dropout(drop_prob)
+        self.count=1
 
     def add_residual_component(self, layer1, layer2):
         return torch.add(layer1, layer2)
@@ -55,7 +56,7 @@ class BiDirResidual_LSTMModel(nn.Module):
         output_layer = self.relu2(output_layer)
 
         output = self.add_residual_component(mid_layer, output_layer)
-        #output = self.BatchNorm(output)
+        output = self.BatchNorm(output)
         return output
 
     def forward(self, x, hidden):
@@ -63,17 +64,19 @@ class BiDirResidual_LSTMModel(nn.Module):
         x = x.permute(1, 0, 2)
 
         x = self.relu1(x)
-        x = self.make_residual_layer(x, hidden, True)
-        x = self.make_residual_layer(x, hidden, False)
+        x = self.make_residual_layer(x, hidden, first=True)
+        x = self.make_residual_layer(x, hidden, first=False)
         x = self.dropout(x)
-        #print("Shape of x is: {}".format(x.shape))
+        if self.count==1:
+            print("Shape of x is: {}".format(x.shape))
+            self.count=0
         out = x[-1]
         out = out.contiguous().view(-1, self.n_hidden)
         out = self.fc(out)
         out = F.softmax(out)
         #print("Shape of out is: {}".format(out.shape))
 
-        return out, hidden
+        return out
 
     def init_hidden(self, batch_size):
         ''' Initialize hidden state'''
