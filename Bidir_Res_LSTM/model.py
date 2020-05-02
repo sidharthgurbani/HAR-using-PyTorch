@@ -55,7 +55,7 @@ class BiDirResidual_LSTMModel(nn.Module):
         output_layer = self.relu2(output_layer)
 
         output = self.add_residual_component(mid_layer, output_layer)
-        output = self.BatchNorm(output)
+        #output = self.BatchNorm(output)
         return output
 
     def forward(self, x, hidden):
