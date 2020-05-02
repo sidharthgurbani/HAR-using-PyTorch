@@ -10,7 +10,7 @@ from Functions import extract_batch_size, getLRScheduler
 def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001):
     print("\n\n********** Running training! ************\n\n")
     opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
-    sched = getLRScheduler(optimer=opt)
+    sched = getLRScheduler(optimizer=opt)
     criterion = nn.CrossEntropyLoss()
 
     #if (train_on_gpu):
