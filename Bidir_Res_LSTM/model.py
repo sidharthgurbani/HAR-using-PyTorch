@@ -55,15 +55,14 @@ class BiDirResidual_LSTMModel(nn.Module):
         output_layer1 = self.relu2(output_layer1)
 
         # Add residual component
-        # mid_layer2 = mid_layer1 + output_layer1
+        mid_layer2 = mid_layer1 + output_layer1
 
-        #output_layer2, hidden_layer3 = self.bidir_lstm2(mid_layer2, hidden)
-        output_layer2, hidden_layer3 = self.bidir_lstm2(output_layer1, hidden)
+        output_layer2, hidden_layer3 = self.bidir_lstm2(mid_layer2, hidden)
         output_layer2 = self.relu2(output_layer2)
 
         # Add residual component
-        # output = mid_layer2 + output_layer2
-        output = self.BatchNorm(output_layer2)
+        output = mid_layer2 + output_layer2
+        output = self.BatchNorm(output)
         return output
 
     def forward(self, x, hidden):
