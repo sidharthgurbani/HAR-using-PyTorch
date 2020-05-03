@@ -8,7 +8,7 @@ from test import test
 from Functions import extract_batch_size, getLRScheduler
 import torch.nn.utils.clip_grad as clip_grad
 
-def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.005, clip_val=15):
+def train(net, X_train, y_train, X_test, y_test, epochs=200, lr=0.001, weight_decay=0.005, clip_val=15):
     print("\n\n********** Running training! ************\n\n")
     opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
     sched = getLRScheduler(optimizer=opt)

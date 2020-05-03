@@ -17,7 +17,7 @@ n_hidden = 32
 class BiDirResidual_LSTMModel(nn.Module):
 
     def __init__(self, n_input=n_input, n_hidden=n_hidden, n_layers=2,
-                 n_classes=n_classes, drop_prob=0.5):
+                 n_classes=n_classes, drop_prob=0.3):
         super(BiDirResidual_LSTMModel, self).__init__()
 
         self.n_layers = n_layers
