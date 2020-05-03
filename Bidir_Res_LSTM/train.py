@@ -1,14 +1,16 @@
-import warnings
-warnings.filterwarnings('ignore')
-
 import torch
 from torch import nn
 import numpy as np
 from test import test
 from Functions import extract_batch_size, getLRScheduler
 import torch.nn.utils.clip_grad as clip_grad
+from sklearn.utils import shuffle
+import config as cfg
 
-def train(net, X_train, y_train, X_test, y_test, epochs=200, lr=0.001, weight_decay=0.005, clip_val=15):
+
+batch_size = cfg.batch_size
+
+def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.005, clip_val=15):
     print("\n\n********** Running training! ************\n\n")
     opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
     sched = getLRScheduler(optimizer=opt)
@@ -29,10 +31,17 @@ def train(net, X_train, y_train, X_test, y_test, epochs=200, lr=0.001, weight_de
     train_len = len(X_train)
     X_tr = X_train
     y_tr = y_train
+    params = {
+        'epochs' : [],
+        'train_loss' : [],
+        'test_loss' : [],
+        'lr' : [],
+        'train_accuracy' : [],
+        'test_accuracy' : []
+    }
     for epoch in range(epochs):
         train_losses = []
         step = 1
-        batch_size = 100
 
         h = net.init_hidden(batch_size)
 
@@ -68,6 +77,9 @@ def train(net, X_train, y_train, X_test, y_test, epochs=200, lr=0.001, weight_de
             opt.step()
             step += 1
 
+        p = opt.param_groups[0]['lr']
+        params['lr'].append(p)
+        params['epochs'].append(epoch)
         sched.step()
         train_loss_avg = np.mean(train_losses)
         train_accuracy_avg = train_accuracy/(step-1)
@@ -85,4 +97,8 @@ def train(net, X_train, y_train, X_test, y_test, epochs=200, lr=0.001, weight_de
                   "Test accuracy: {:.4f}...".format(test_accuracy),
                   "Test F1: {:.4f}...".format(test_f1score))
 
-    return epoch_train_losses, epoch_train_acc, epoch_test_losses, epoch_test_acc
+    params['train_loss'] = epoch_train_losses
+    params['test_loss'] = epoch_test_losses
+    params['train_accuracy'] = epoch_train_acc
+    params['test_accuracy'] = epoch_test_acc
+    return params

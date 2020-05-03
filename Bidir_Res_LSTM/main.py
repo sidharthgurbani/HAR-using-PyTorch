@@ -1,16 +1,11 @@
-import warnings
-warnings.filterwarnings('ignore')
-
-#import configparser
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
 from loadDataset import load_X, load_y
 from train import train
+import json
 from model import BiDirResidual_LSTMModel, init_weights
-
-#config = configparser.ConfigParser()
-#config.read('project.properties')
+import config as cfg
 
 # Useful Constants
 
@@ -56,17 +51,14 @@ y_test_path = DATASET_PATH + TEST + "y_test.txt"
 #n_hidden = int(config.get('InputParameters', 'n_hidden'))  # Hidden layer num of features
 #n_classes = int(config.get('InputParameters', 'n_classes'))  # Total classes (should go up, or should go down)
 
-n_hidden = 32
-n_classes = 6
+n_hidden = cfg.n_hidden
+n_classes = cfg.n_classes
 
+epochs = cfg.n_epochs
+learning_rate = cfg.learning_rate
+weigth_decay = cfg.weigth_decay
+clip_val = cfg.clip_val
 # Training
-
-learning_rate = 0.0025
-lambda_loss_amount = 0.0015
-#training_iters = training_data_count * 300  # Loop 300 times on the dataset
-BATCH_SIZE = 1500
-display_iter = 30000  # To show test set accuracy during training
-
 # check if GPU is available
 
 #train_on_gpu = torch.cuda.is_available()
@@ -76,24 +68,32 @@ else:
     print('GPU not available! Training on CPU. Try to keep n_epochs very small')
 
 
-def plot(epochs, param_train, param_test, label):
-    plt.figure()
-    plt.plot(range(1, epochs+1),
-             param_train, color='blue', label='train')
-    plt.plot(range(1, epochs+1),
-             param_test, color='red', label='test')
-    plt.legend()
-    plt.xlabel('Epoch', fontsize=14)
-    if (label == 'accuracy'):
-        plt.ylabel('Accuracy (%)', fontsize=14)
-        plt.title('Training and Test Accuracy', fontsize=20)
+def plot(x_arg, y_arg, y_arg_train, y_arg_test, label):
+    if label=='accuracy' or label=='loss':
+        plt.figure()
+        plt.plot(x_arg, y_arg_train, color='blue', label='train')
+        plt.plot(x_arg, y_arg_test, color='red', label='test')
+        plt.legend()
+        plt.xlabel('epochs', fontsize=14)
+        plt.ylabel( label + '(%)', fontsize=14)
+        plt.title('Training and Test ' + label , fontsize=20)
         plt.show()
-        plt.savefig('Accuracy_' + str(epochs))
+        plt.savefig(label + str(epochs))
     else:
-        plt.ylabel('Loss', fontsize=14)
-        plt.title('Training and Test Loss', fontsize=20)
+        plt.figure()
+        plt.plot(x_arg+1, y_arg)
+        plt.legend()
+        plt.xlabel('learning_rate', fontsize=14)
+        plt.ylabel('Training loss', fontsize=14)
+        plt.title('Train loss v/s learning_rate')
         plt.show()
-        plt.savefig('Loss_' + str(epochs))
+        plt.savefig(label + str(epochs))
+
+
+def saveResults(params: dict = {}):
+    if params:
+        with open("results/params.json", 'w+') as fp:
+            json.dump(params, fp)
 
 def main():
 
@@ -120,10 +120,12 @@ def main():
 
     net = BiDirResidual_LSTMModel()
     net.apply(init_weights)
-    epochs = 100
-    train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs)
-    plot(epochs, train_losses, test_losses, 'loss')
-    plot(epochs, train_acc, test_acc, 'accuracy')
+    params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weigth_decay=weigth_decay, clip_val=clip_val)
+    saveResults(params)
+    #train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs)
+    plot(params['epochs'], None, params['train_loss'], params['test_loss'], 'loss')
+    plot(params['epochs'], None, params['train_accuracy'], params['test_accuracy'], 'accuracy')
+    plot(params['lr'], params['train_loss'], None, None, None)
 
 
 main()

@@ -1,7 +1,8 @@
 import numpy as np
 import torch.optim.lr_scheduler as lr_scheduler
+import config as cfg
 
-n_classes = 6
+n_classes = cfg.n_classes
 
 # Define function to generate batches of a particular size
 

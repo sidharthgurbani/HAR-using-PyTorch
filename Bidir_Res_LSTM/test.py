@@ -1,10 +1,8 @@
-import warnings
-warnings.filterwarnings('ignore')
-
 import torch
 import numpy as np
 import sklearn.metrics as metrics
 from Functions import extract_batch_size
+import config as cfg
 
 def test(net, X_test, y_test, criterion, test_batch=64):
 
