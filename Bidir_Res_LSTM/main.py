@@ -99,8 +99,8 @@ def checkPlots():
     label = 'accuracy'
     epochs = '100'
     lr = '0.001'
-    x_arg = range(1, 101)
-    y_arg = range(100, 0)
+    x_arg = np.arange(1, 101)
+    y_arg = np.arange(100, 0, -1)
     plt.figure()
     plt.plot(x_arg, y_arg)
     plt.legend()
