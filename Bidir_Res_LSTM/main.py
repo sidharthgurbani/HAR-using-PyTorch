@@ -77,8 +77,8 @@ def plot(x_arg, y_arg, y_arg_train, y_arg_test, label, lr):
         plt.xlabel('epochs', fontsize=14)
         plt.ylabel( label + '(%)', fontsize=14)
         plt.title('Training and Test ' + label , fontsize=20)
+        plt.savefig(label + '_' + str(epochs) + '_' + lr)
         plt.show()
-        plt.savefig(label + str(epochs) + lr)
     else:
         plt.figure()
         plt.plot(x_arg+1, y_arg)
@@ -86,8 +86,8 @@ def plot(x_arg, y_arg, y_arg_train, y_arg_test, label, lr):
         plt.xlabel('learning_rate', fontsize=14)
         plt.ylabel('Training loss', fontsize=14)
         plt.title('Train loss v/s learning_rate')
+        plt.savefig(label + '_' + str(epochs) + '_' + lr)
         plt.show()
-        plt.savefig(label + str(epochs) + lr)
 
 
 def saveResults(params: dict = {}):
@@ -107,8 +107,9 @@ def checkPlots():
     plt.xlabel('epochs', fontsize=14)
     plt.ylabel( 'Accuracy (%)', fontsize=14)
     plt.title('Training and Test accuracy' , fontsize=20)
-    plt.show()
     plt.savefig(label + str(epochs) + lr + '.png')
+    plt.show()
+
 
 def main():
 
@@ -144,5 +145,5 @@ def main():
         plot(params['lr'], params['train_loss'], None, None, 'loss_lr', str(lr))
 
 
-#main()
-checkPlots()
+main()
+#checkPlots()
