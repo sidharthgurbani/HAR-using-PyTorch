@@ -37,8 +37,8 @@ def train(net, X_train, y_train, X_test, y_test, epochs=200, lr=0.001, weight_de
         h = net.init_hidden(batch_size)
 
         train_accuracy = 0
-        np.random.shuffle(X_tr)
-        np.random.shuffle(y_tr)
+        #np.random.shuffle(X_tr)
+        #np.random.shuffle(y_tr)
 
         while step * batch_size <= train_len:
             batch_xs = extract_batch_size(X_tr, step, batch_size)
