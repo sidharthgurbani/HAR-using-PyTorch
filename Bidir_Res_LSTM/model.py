@@ -1,19 +1,19 @@
-import warnings
-warnings.filterwarnings('ignore')
-
 import torch
 from torch import nn
 import torch.nn.functional as F
+import config as cfg
 
-n_classes = 6
-n_input = 9
-n_hidden = 32
-
+n_classes = cfg.n_classes
+n_input = cfg.n_input
+n_hidden = cfg.n_hidden
+drop_prob = cfg.drop_prob
+n_layers = cfg.n_layers
+batch_size = cfg.batch_size
 
 class BiDirResidual_LSTMModel(nn.Module):
 
-    def __init__(self, n_input=n_input, n_hidden=n_hidden, n_layers=2,
-                 n_classes=n_classes, drop_prob=0.3):
+    def __init__(self, n_input=n_input, n_hidden=n_hidden, n_layers=n_layers,
+                 n_classes=n_classes, drop_prob=drop_prob):
         super(BiDirResidual_LSTMModel, self).__init__()
 
         self.n_layers = n_layers
@@ -37,7 +37,7 @@ class BiDirResidual_LSTMModel(nn.Module):
         self.bidir_lstm1 = nn.LSTM(n_input, int(n_hidden / 2), n_layers, bidirectional=True, dropout=self.drop_prob)
         self.bidir_lstm2 = nn.LSTM(n_hidden, int(n_hidden / 2), n_layers, bidirectional=True, dropout=self.drop_prob)
         self.fc = nn.Linear(n_hidden, n_classes)
-        self.BatchNorm = nn.BatchNorm1d(100)
+        self.BatchNorm = nn.BatchNorm1d(batch_size)
         self.dropout = nn.Dropout(drop_prob)
         self.count=1
 
