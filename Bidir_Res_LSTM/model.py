@@ -46,15 +46,20 @@ class BiDirResidual_LSTMModel(nn.Module):
 
     def make_residual_layer(self, input_layer, hidden, first=False):
         if first:
-            mid_layer, hidden_layer1 = self.bidir_lstm1(input_layer, hidden)
+            mid_layer1, hidden_layer1 = self.bidir_lstm1(input_layer, hidden)
         else:
-            mid_layer, hidden_layer1 = self.bidir_lstm2(input_layer, hidden)
+            mid_layer1, hidden_layer1 = self.bidir_lstm2(input_layer, hidden)
 
-        mid_layer = self.relu2(mid_layer)
-        output_layer, hidden_layer2 = self.bidir_lstm2(mid_layer, hidden)
-        output_layer = self.relu2(output_layer)
+        mid_layer = self.relu2(mid_layer1)
+        output_layer1, hidden_layer2 = self.bidir_lstm2(mid_layer1, hidden)
+        output_layer1 = self.relu2(output_layer1)
 
-        output = self.add_residual_component(mid_layer, output_layer)
+        mid_layer2 = self.add_residual_component(mid_layer1, output_layer1)
+
+        output_layer2, hidden_layer3 = self.bidir_lstm2(mid_layer2, hidden)
+        output_layer2 = self.relu2(output_layer2)
+
+        output = self.add_residual_component(mid_layer2, output_layer2)
         output = self.BatchNorm(output)
         return output
 
@@ -64,6 +69,8 @@ class BiDirResidual_LSTMModel(nn.Module):
 
         x = self.relu1(x)
         x = self.make_residual_layer(x, hidden, first=True)
+        x = self.dropout(x)
+        x = self.make_residual_layer(x, hidden, first=False)
         x = self.dropout(x)
         x = self.make_residual_layer(x, hidden, first=False)
         x = self.dropout(x)
