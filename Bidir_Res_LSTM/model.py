@@ -34,6 +34,10 @@ class BiDirResidual_LSTMModel(nn.Module):
             nn.Linear(n_hidden, n_hidden),
             nn.ReLU()
         )
+        self.relu3 = nn.Sequential(
+            nn.Linear(n_hidden, n_classes),
+            nn.ReLU()
+        )
         self.bidir_lstm1 = nn.LSTM(n_input, int(n_hidden / 2), n_layers, bidirectional=True, dropout=self.drop_prob)
         self.bidir_lstm2 = nn.LSTM(n_hidden, int(n_hidden / 2), n_layers, bidirectional=True, dropout=self.drop_prob)
         self.fc = nn.Linear(n_hidden, n_classes)
@@ -79,7 +83,7 @@ class BiDirResidual_LSTMModel(nn.Module):
             self.count=0
         out = x[-1]
         out = out.contiguous().view(-1, self.n_hidden)
-        out = self.fc(out)
+        out = self.relu3(out)
         out = F.softmax(out)
         #print("Shape of out is: {}".format(out.shape))
 
