@@ -27,6 +27,8 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
     epoch_test_losses = []
     epoch_test_acc = []
     train_len = len(X_train)
+    X_tr = X_train
+    y_tr = y_train
     for epoch in range(epochs):
         train_losses = []
         step = 1
@@ -35,8 +37,8 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
         h = net.init_hidden(batch_size)
 
         train_accuracy = 0
-        X_tr = np.random.shuffle(X_train)
-        y_tr = np.random.shuffle(X_train)
+        np.random.shuffle(X_tr)
+        np.random.shuffle(y_tr)
 
         while step * batch_size <= train_len:
             batch_xs = extract_batch_size(X_tr, step, batch_size)
