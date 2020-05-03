@@ -6,7 +6,7 @@ from torch import nn
 import numpy as np
 from test import test
 from Functions import extract_batch_size, getLRScheduler
-import torch.nn.utils.clip_grad as clip_grad
+#import torch.nn.utils.clip_grad as clip_grad
 
 def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.01, clip_val=15):
     print("\n\n********** Running training! ************\n\n")
@@ -60,7 +60,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
             equals = top_class
 
             train_loss.backward()
-            clip_grad(net.parameters(), clip_val)
+            #clip_grad(net.parameters(), clip_val)
             opt.step()
             step += 1
 
