@@ -68,7 +68,7 @@ else:
     print('GPU not available! Training on CPU. Try to keep n_epochs very small')
 
 
-def plot(x_arg, y_arg, y_arg_train, y_arg_test, label):
+def plot(x_arg, y_arg, y_arg_train, y_arg_test, label, lr):
     if label=='accuracy' or label=='loss':
         plt.figure()
         plt.plot(x_arg, y_arg_train, color='blue', label='train')
@@ -78,7 +78,7 @@ def plot(x_arg, y_arg, y_arg_train, y_arg_test, label):
         plt.ylabel( label + '(%)', fontsize=14)
         plt.title('Training and Test ' + label , fontsize=20)
         plt.show()
-        plt.savefig(label + str(epochs))
+        plt.savefig(label + str(epochs) + lr)
     else:
         plt.figure()
         plt.plot(x_arg+1, y_arg)
@@ -87,13 +87,28 @@ def plot(x_arg, y_arg, y_arg_train, y_arg_test, label):
         plt.ylabel('Training loss', fontsize=14)
         plt.title('Train loss v/s learning_rate')
         plt.show()
-        plt.savefig(label + str(epochs))
+        plt.savefig(label + str(epochs) + lr)
 
 
 def saveResults(params: dict = {}):
     if params:
         with open("results/params.json", 'w+') as fp:
             json.dump(params, fp)
+
+def checkPlots():
+    label = 'accuracy'
+    epochs = '100'
+    lr = '0.001'
+    x_arg = range(1, 101)
+    y_arg = range(100, 0)
+    plt.figure()
+    plt.plot(x_arg, y_arg)
+    plt.legend()
+    plt.xlabel('epochs', fontsize=14)
+    plt.ylabel( 'Accuracy (%)', fontsize=14)
+    plt.title('Training and Test accuracy' , fontsize=20)
+    plt.show()
+    plt.savefig(label + str(epochs) + lr)
 
 def main():
 
@@ -118,14 +133,16 @@ def main():
     print(X_test.shape, y_test.shape, np.mean(X_test), np.std(X_test))
     print("The dataset is therefore properly normalised, as expected, but not yet one-hot encoded.")
 
-    net = BiDirResidual_LSTMModel()
-    net.apply(init_weights)
-    params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay, clip_val=clip_val)
-    saveResults(params)
-    #train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs)
-    plot(params['epochs'], None, params['train_loss'], params['test_loss'], 'loss')
-    plot(params['epochs'], None, params['train_accuracy'], params['test_accuracy'], 'accuracy')
-    plot(params['lr'], params['train_loss'], None, None, None)
+    for lr in learning_rate:
+        net = BiDirResidual_LSTMModel()
+        net.apply(init_weights)
+        params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=lr, weight_decay=weight_decay, clip_val=clip_val)
+        saveResults(params)
+        #train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs)
+        plot(params['epochs'], None, params['train_loss'], params['test_loss'], 'loss', str(lr)
+        plot(params['epochs'], None, params['train_accuracy'], params['test_accuracy'], 'accuracy', str(lr))
+        plot(params['lr'], params['train_loss'], None, None, 'loss_lr', str(lr))
 
 
-main()
+#main()
+checkPlots()
