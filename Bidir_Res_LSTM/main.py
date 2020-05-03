@@ -120,7 +120,7 @@ def main():
 
     net = BiDirResidual_LSTMModel()
     net.apply(init_weights)
-    params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weigth_decay=weight_decay, clip_val=clip_val)
+    params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay, clip_val=clip_val)
     saveResults(params)
     #train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs)
     plot(params['epochs'], None, params['train_loss'], params['test_loss'], 'loss')
