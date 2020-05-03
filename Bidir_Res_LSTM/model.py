@@ -38,7 +38,7 @@ class BiDirResidual_LSTMModel(nn.Module):
         self.bidir_lstm2 = nn.LSTM(n_hidden, int(n_hidden / 2), n_layers, bidirectional=True, dropout=self.drop_prob)
         self.fc = nn.Linear(n_hidden, n_classes)
         self.BatchNorm = nn.BatchNorm1d(100)
-        #self.dropout = nn.Dropout(drop_prob)
+        self.dropout = nn.Dropout(drop_prob)
         self.count=1
 
     def add_residual_component(self, layer1, layer2):
