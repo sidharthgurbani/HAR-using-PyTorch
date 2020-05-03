@@ -108,7 +108,7 @@ def checkPlots():
     plt.ylabel( 'Accuracy (%)', fontsize=14)
     plt.title('Training and Test accuracy' , fontsize=20)
     plt.show()
-    plt.savefig(label + str(epochs) + lr)
+    plt.savefig(label + str(epochs) + lr + '.png')
 
 def main():
 
