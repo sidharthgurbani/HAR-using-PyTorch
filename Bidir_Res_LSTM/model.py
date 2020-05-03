@@ -50,7 +50,7 @@ class BiDirResidual_LSTMModel(nn.Module):
         else:
             mid_layer1, hidden_layer1 = self.bidir_lstm2(input_layer, hidden)
 
-        mid_layer = self.relu2(mid_layer1)
+        mid_layer1 = self.relu2(mid_layer1)
         output_layer1, hidden_layer2 = self.bidir_lstm2(mid_layer1, hidden)
         output_layer1 = self.relu2(output_layer1)
 
