@@ -83,7 +83,8 @@ class BiDirResidual_LSTMModel(nn.Module):
             self.count=0
         out = x[-1]
         out = out.contiguous().view(-1, self.n_hidden)
-        out = self.relu3(out)
+        #out = self.relu3(out)
+        out = self.fc(out)
         out = F.softmax(out)
         #print("Shape of out is: {}".format(out.shape))
 

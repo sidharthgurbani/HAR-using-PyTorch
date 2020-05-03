@@ -26,6 +26,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
     epoch_train_acc = []
     epoch_test_losses = []
     epoch_test_acc = []
+    train_len = len(X_train)
     for epoch in range(epochs):
         train_losses = []
         step = 1
@@ -34,12 +35,13 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
         h = net.init_hidden(batch_size)
 
         train_accuracy = 0
-        train_len = len(X_train)
+        X_tr = np.random.shuffle(X_train)
+        y_tr = np.random.shuffle(X_train)
 
         while step * batch_size <= train_len:
-            batch_xs = extract_batch_size(X_train, step, batch_size)
+            batch_xs = extract_batch_size(X_tr, step, batch_size)
             # batch_ys = one_hot_vector(extract_batch_size(y_train, step, batch_size))
-            batch_ys = extract_batch_size(y_train, step, batch_size)
+            batch_ys = extract_batch_size(y_tr, step, batch_size)
 
             inputs, targets = torch.from_numpy(batch_xs), torch.from_numpy(batch_ys.flatten('F'))
             #if (train_on_gpu):
