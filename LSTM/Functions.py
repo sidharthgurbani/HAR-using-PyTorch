@@ -1,9 +1,6 @@
 import numpy as np
-#import configparser 
+import torch.optim.lr_scheduler as lr_scheduler
 
-#config = configparser.ConfigParser()
-#config.read('project.properties')
-#n_classes = int(config.get('InputParameters', 'n_classes'))
 n_classes = 6
 # Define function to generate batches of a particular size
 
@@ -30,3 +27,14 @@ def one_hot_vector(y_, n_classes=n_classes):
 
     y_ = y_.reshape(len(y_))
     return np.eye(n_classes)[np.array(y_, dtype=np.int32)]  # Returns FLOATS
+
+def getLRScheduler(optimizer):
+    n_epochs = 50
+    n_epochs_decay = 150
+    def lambdaRule(epoch):
+        lr_l = 1.0 - max(0, epoch - n_epochs) / float(n_epochs_decay + 1)
+        return lr_l
+
+    schedular = lr_scheduler.LambdaLR(optimizer, lr_lambda=lambdaRule)
+    #schedular = lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
+    return schedular

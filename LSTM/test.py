@@ -6,7 +6,7 @@ import numpy as np
 import sklearn.metrics as metrics
 from Functions import extract_batch_size
 
-def test(net, X_test, y_test, criterion):
+def test(net, X_test, y_test, criterion, test_batch=64):
 
 
     

@@ -1,17 +1,11 @@
 import warnings
 warnings.filterwarnings('ignore')
 
-#import configparser
+
 import torch
 from torch import nn
 import torch.nn.functional as F
 
-
-#config = configparser.ConfigParser()
-#config.read('project.properties')
-#n_classes = int(config.get('InputParameters', 'n_classes'))
-#n_input = int(config.get('InputParameters', 'n_input'))
-#n_hidden = int(config.get('InputParameters', 'n_hidden'))
 
 n_classes = 6
 n_input = 9
@@ -36,11 +30,9 @@ class LSTMModel(nn.Module):
     def forward(self, x, hidden):
         x = x.permute(1, 0, 2)
         x, hidden = self.lstm(x, hidden)
-        # print("length of x is {}".format(x.size()))
         x = self.dropout(x)
         out = x[-1]
         out = out.contiguous().view(-1, self.n_hidden)
-        # print("length of out is {}".format(out.size()))
         out = self.fc(out)
         out = F.softmax(out)
 

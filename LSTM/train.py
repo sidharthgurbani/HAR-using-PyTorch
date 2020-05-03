@@ -5,11 +5,12 @@ import torch
 from torch import nn
 import numpy as np
 from test import test
-from Functions import extract_batch_size
+from Functions import extract_batch_size, getLRScheduler
 
 def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001):
     print("\n\n********** Running training! ************\n\n")
     opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
+    sched = getLRScheduler(optimizer=opt)
     criterion = nn.CrossEntropyLoss()
 
     #if (train_on_gpu):
@@ -61,6 +62,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
             opt.step()
             step += 1
 
+        sched.step()
         train_loss_avg = np.mean(train_losses)
         train_accuracy_avg = train_accuracy/(step-1)
         epoch_train_losses.append(train_loss_avg)
@@ -68,7 +70,7 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
         print("Epoch: {}/{}...".format(epoch + 1, epochs),
               ' ' * 16 + "Train Loss: {:.4f}".format(train_loss_avg),
               "Train accuracy: {:.4f}...".format(train_accuracy_avg))
-        test_loss, test_f1score, test_accuracy = test(net, X_test, y_test, criterion)
+        test_loss, test_f1score, test_accuracy = test(net, X_test, y_test, criterion, test_batch=batch_size)
         epoch_test_losses.append(test_loss)
         epoch_test_acc.append(test_accuracy)
         if ((epoch+1) % 10 == 0):
