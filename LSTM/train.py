@@ -90,8 +90,8 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
                   "Test accuracy: {:.4f}...".format(test_accuracy),
                   "Test F1: {:.4f}...".format(test_f1score))
 
-    params['train_loss'] = epoch_train_losses.numpy()
-    params['test_loss'] = epoch_test_losses.numpy()
-    params['train_accuracy'] = epoch_train_acc.numpy()
-    params['test_accuracy'] = epoch_test_acc.numpy()
+    params['train_loss'] = epoch_train_losses
+    params['test_loss'] = epoch_test_losses
+    params['train_accuracy'] = epoch_train_acc
+    params['test_accuracy'] = epoch_test_acc
     return params
