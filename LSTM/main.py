@@ -107,7 +107,6 @@ def main():
 
     net = LSTMModel()
     net.apply(init_weights)
-    epochs = 100
     train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay)
     plot(epochs, train_losses, test_losses, 'loss')
     plot(epochs, train_acc, test_acc, 'accuracy')
