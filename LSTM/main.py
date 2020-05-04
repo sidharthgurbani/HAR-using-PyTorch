@@ -1,16 +1,10 @@
-import warnings
-warnings.filterwarnings('ignore')
-
-#import configparser
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
 from loadDataset import load_X, load_y
 from train import train
 from model import LSTMModel, init_weights
-
-#config = configparser.ConfigParser()
-#config.read('project.properties')
+import config as cfg
 
 # Useful Constants
 
@@ -53,20 +47,13 @@ y_test_path = DATASET_PATH + TEST + "y_test.txt"
 
 # LSTM Neural Network's internal structure
 
-#n_hidden = int(config.get('InputParameters', 'n_hidden'))  # Hidden layer num of features
-#n_classes = int(config.get('InputParameters', 'n_classes'))  # Total classes (should go up, or should go down)
-
-n_hidden = 32
-n_classes = 6
+n_hidden = cfg.n_hidden
+n_classes = cfg.n_classes
+epochs = cfg.n_epochs
+learning_rate = cfg.learning_rate
+weight_decay = cfg.weight_decay
 
 # Training
-
-learning_rate = 0.0025
-lambda_loss_amount = 0.0015
-#training_iters = training_data_count * 300  # Loop 300 times on the dataset
-BATCH_SIZE = 1500
-display_iter = 30000  # To show test set accuracy during training
-
 # check if GPU is available
 
 #train_on_gpu = torch.cuda.is_available()
@@ -121,7 +108,7 @@ def main():
     net = LSTMModel()
     net.apply(init_weights)
     epochs = 100
-    train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs)
+    train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay)
     plot(epochs, train_losses, test_losses, 'loss')
     plot(epochs, train_acc, test_acc, 'accuracy')
 

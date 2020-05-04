@@ -1,11 +1,11 @@
-import warnings
-warnings.filterwarnings('ignore')
-
 import torch
 from torch import nn
 import numpy as np
 from test import test
 from Functions import extract_batch_size, getLRScheduler
+import config as cfg
+
+batch_size = cfg.batch_size
 
 def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001):
     print("\n\n********** Running training! ************\n\n")
@@ -18,7 +18,6 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
         net.cuda()
 
     train_losses = []
-    # results = np.empty([0, 5], dtype=np.float32)
     net.train()
 
     epoch_train_losses = []
@@ -28,7 +27,6 @@ def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_de
     for epoch in range(epochs):
         train_losses = []
         step = 1
-        batch_size = 64
 
         h = net.init_hidden(batch_size)
 
