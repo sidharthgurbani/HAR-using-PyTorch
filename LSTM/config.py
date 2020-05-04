@@ -13,4 +13,4 @@ drop_prob = 0.3
 n_epochs = 200
 n_layers = 2
 
-n_epochs_hold = 30
+n_epochs_hold = 120
