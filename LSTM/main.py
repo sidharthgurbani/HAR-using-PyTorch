@@ -52,6 +52,7 @@ n_classes = cfg.n_classes
 epochs = cfg.n_epochs
 learning_rate = cfg.learning_rate
 weight_decay = cfg.weight_decay
+clip_val = cfg.clip_val
 
 # Training
 # check if GPU is available
@@ -70,17 +71,25 @@ def plot(epochs, param_train, param_test, label):
     plt.plot(range(1, epochs+1),
              param_test, color='red', label='test')
     plt.legend()
-    plt.xlabel('Epoch', fontsize=14)
     if (label == 'accuracy'):
+        plt.xlabel('Epoch', fontsize=14)
         plt.ylabel('Accuracy (%)', fontsize=14)
         plt.title('Training and Test Accuracy', fontsize=20)
-        plt.savefig('Accuracy_' + str(epochs))
+        plt.savefig('Accuracy_' + str(epochs) + '.png')
         plt.show()
-    else:
+    elif (label == 'loss'):
+        plt.xlabel('Epoch', fontsize=14)
         plt.ylabel('Loss', fontsize=14)
         plt.title('Training and Test Loss', fontsize=20)
-        plt.savefig('Loss_' + str(epochs))
+        plt.savefig('Loss_' + str(epochs) + '.png')
         plt.show()
+    else:
+        plt.xlabel('Learning rate', fontsize=14)
+        plt.ylabel('Loss', fontsize=14)
+        plt.title('Training loss and Test loss with learning rate', fontsize=20)
+        plt.savefig('Loss_lr_' + str(epochs) + '.png')
+        plt.show()
+
 
 def main():
 
@@ -107,9 +116,11 @@ def main():
 
     net = LSTMModel()
     net.apply(init_weights)
-    train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay)
-    plot(epochs, train_losses, test_losses, 'loss')
-    plot(epochs, train_acc, test_acc, 'accuracy')
+    #train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay, clip_val=clip_val)
+    params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay, clip_val=clip_val)
+    plot(params['epochs'], params['train_loss'], params['test_loss'], 'loss')
+    plot(params['epochs'], params['train_accuracy'], params['test_accuracy'], 'accuracy')
+    plot(params['lr'], params['train_loss'], params['test_loss'], 'loss_lr')
 
 
 main()
