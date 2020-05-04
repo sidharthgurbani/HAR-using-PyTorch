@@ -86,7 +86,7 @@ def plot(x_arg, y_arg, y_arg_train, y_arg_test, label, lr):
         plt.xlabel('learning_rate', fontsize=14)
         plt.ylabel('Training loss', fontsize=14)
         plt.title('Train loss v/s learning_rate')
-        plt.savefig(label + '_' + str(epochs) + '_' + lr)
+        plt.savefig(label + '_' + str(epochs) + '_' + lr + '.png')
         plt.show()
 
 
