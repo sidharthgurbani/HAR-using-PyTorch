@@ -44,14 +44,22 @@ class LSTMModel(nn.Module):
         # Create two new tensors with sizes n_layers x batch_size x n_hidden,
         # initialized to zero, for hidden state and cell state of LSTM
         weight = next(self.parameters()).data
-
+        bidir = True
         # if (train_on_gpu):
         if (torch.cuda.is_available() ):
-            hidden = (weight.new(self.n_layers, batch_size, self.n_hidden).zero_().cuda(),
-                      weight.new(self.n_layers, batch_size, self.n_hidden).zero_().cuda())
+            if bidir:
+                hidden = (weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_().cuda(),
+                          weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_().cuda())
+            else:
+                hidden = (weight.new(self.n_layers, batch_size, self.n_hidden).zero_().cuda(),
+                          weight.new(self.n_layers, batch_size, self.n_hidden).zero_().cuda())
         else:
-            hidden = (weight.new(self.n_layers, batch_size, self.n_hidden).zero_(),
-                      weight.new(self.n_layers, batch_size, self.n_hidden).zero_())
+            if bidir:
+                hidden = (weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_(),
+                          weight.new(2*self.n_layers, batch_size, int(self.n_hidden)).zero_())
+            else:
+                hidden = (weight.new(self.n_layers, batch_size, self.n_hidden).zero_(),
+                          weight.new(self.n_layers, batch_size, self.n_hidden).zero_())
 
         return hidden
 
