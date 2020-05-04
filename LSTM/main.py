@@ -64,12 +64,10 @@ else:
     print('GPU not available! Training on CPU. Try to keep n_epochs very small')
 
 
-def plot(epochs, param_train, param_test, label):
+def plot(x_arg, param_train, param_test, label):
     plt.figure()
-    plt.plot(range(1, epochs+1),
-             param_train, color='blue', label='train')
-    plt.plot(range(1, epochs+1),
-             param_test, color='red', label='test')
+    plt.plot(x_arg, param_train, color='blue', label='train')
+    plt.plot(x_arg, param_test, color='red', label='test')
     plt.legend()
     if (label == 'accuracy'):
         plt.xlabel('Epoch', fontsize=14)
