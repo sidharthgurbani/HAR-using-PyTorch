@@ -25,10 +25,8 @@ class LSTMModel(nn.Module):
         if bidir==1:
             self.lstm = nn.LSTM(n_input, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
         elif bidir==2:
-            self.lstm = nn.Sequential(
-                nn.LSTM(n_input, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob),
-                nn.LSTM(n_hidden, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
-                )
+            self.lstm1 = nn.LSTM(n_input, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
+            self.lstm2 = nn.LSTM(n_hidden, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
         else:
             self.lstm = nn.LSTM(n_input, n_hidden, n_layers, dropout=self.drop_prob)
 
@@ -37,7 +35,11 @@ class LSTMModel(nn.Module):
 
     def forward(self, x, hidden):
         x = x.permute(1, 0, 2)
-        x, hidden = self.lstm(x, hidden)
+        if bidir==2:
+            x, hidden1 = self.lstm1(x, hidden)
+            x, hidden2 = self.lstm2(x, hidden)
+        else:
+            x, hidden = self.lstm(x, hidden)
         x = self.dropout(x)
         out = x[-1]
         out = out.contiguous().view(-1, self.n_hidden)
