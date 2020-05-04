@@ -6,7 +6,7 @@ n_hidden = 32
 
 learning_rate = 0.001 #	[0.001, 0.0025, 0.005, 0.01]
 weight_decay = 0.001
-bidir = True
+bidir = False
 
 batch_size = 64
 drop_prob = 0.3
