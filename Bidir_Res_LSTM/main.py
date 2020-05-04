@@ -93,7 +93,7 @@ def plot(x_arg, y_arg, y_arg_train, y_arg_test, label, lr):
 def saveResults(params: dict = {}):
     if params:
         with open("results/params.json", 'w+') as fp:
-            json.dump(params, fp)
+            json.dump(params.cpu().numpy(), fp)
 
 def checkPlots():
     label = 'accuracy'
