@@ -87,13 +87,13 @@ def plot(epochs, param_train, param_test, label):
     if (label == 'accuracy'):
         plt.ylabel('Accuracy (%)', fontsize=14)
         plt.title('Training and Test Accuracy', fontsize=20)
-        plt.show()
         plt.savefig('Accuracy_' + str(epochs))
+        plt.show()
     else:
         plt.ylabel('Loss', fontsize=14)
         plt.title('Training and Test Loss', fontsize=20)
-        plt.show()
         plt.savefig('Loss_' + str(epochs))
+        plt.show()
 
 def main():
 
