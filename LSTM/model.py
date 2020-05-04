@@ -23,7 +23,8 @@ class LSTMModel(nn.Module):
         self.drop_prob = drop_prob
         self.n_input = n_input
 
-        self.lstm = nn.LSTM(n_input, n_hidden, n_layers, dropout=self.drop_prob)
+        #self.lstm = nn.LSTM(n_input, n_hidden, n_layers, dropout=self.drop_prob)
+        self.lstm = nn.LSTM(n_input, int(n_hidden/2), n_layers, bidirectional=true, dropout=self.drop_prob)
         self.fc = nn.Linear(n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
