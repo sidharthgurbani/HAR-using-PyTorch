@@ -22,8 +22,13 @@ class LSTMModel(nn.Module):
         self.drop_prob = drop_prob
         self.n_input = n_input
 
-        if bidir:
+        if bidir==1:
             self.lstm = nn.LSTM(n_input, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
+        elif bidir==2:
+            self.lstm = nn.Sequential(
+                nn.LSTM(n_input, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob),
+                nn.LSTM(n_hidden, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
+                )
         else:
             self.lstm = nn.LSTM(n_input, n_hidden, n_layers, dropout=self.drop_prob)
 
