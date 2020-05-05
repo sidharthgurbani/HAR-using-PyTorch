@@ -7,7 +7,7 @@ n_hidden = 32
 learning_rate = [0.0015]
 weight_decay = 0.001
 bidir = 2
-clip_val = 10
+clip_val = 5
 
 batch_size = 64
 drop_prob = 0.5
