@@ -10,7 +10,7 @@ batch_size = cfg.batch_size
 
 def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001, clip_val=15):
     print("\n\n********** Running training! ************\n\n")
-    opt = torch.optim.Adam(net.parameters(), lr=lr)
+    opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
     sched = getLRScheduler(optimizer=opt)
     criterion = nn.CrossEntropyLoss()
 
