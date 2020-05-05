@@ -8,12 +8,10 @@ import config as cfg
 
 batch_size = cfg.batch_size
 
-def train(net, X_train, y_train, X_test, y_test, epochs=100, lr=0.001, weight_decay=0.001, clip_val=15):
+def train(net, X_train, y_train, X_test, y_test, opt, criterion, epochs=100, clip_val=15):
     print("\n\n********** Running training! ************\n\n")
-    opt = torch.optim.Adam(net.parameters(), lr=lr)
-    sched = getLRScheduler(optimizer=opt)
-    criterion = nn.CrossEntropyLoss()
 
+    sched = getLRScheduler(optimizer=opt)
     #if (train_on_gpu):
     if (torch.cuda.is_available() ):
         net.cuda()
