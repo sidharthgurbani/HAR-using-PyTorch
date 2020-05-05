@@ -80,7 +80,7 @@ def evaluate(net, X_test, y_test, criterion):
     output, test_h = net(inputs.float(), test_h)
     top_p, top_class = output.topk(1, dim=1)
     if (torch.cuda.is_available() ):
-            top_class, targets = inputs.cpu(), targets.long().cpu()
+            top_class, targets = top_class.cpu(), targets.long().cpu()
     print ("Output shape is: {} and target shape is: {}".format(top_class.shape, targets.shape))
     confusion_matrix = metrics.confusion_matrix(top_class, targets)
     print("---------Confusion Matrix--------")
