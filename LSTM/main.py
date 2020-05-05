@@ -64,7 +64,7 @@ else:
     print('GPU not available! Training on CPU. Try to keep n_epochs very small')
 
 
-def plot(x_arg, param_train, param_test, label):
+def plot(x_arg, param_train, param_test, label, lr):
     plt.figure()
     plt.plot(x_arg, param_train, color='blue', label='train')
     plt.plot(x_arg, param_test, color='red', label='test')
@@ -73,19 +73,19 @@ def plot(x_arg, param_train, param_test, label):
         plt.xlabel('Epoch', fontsize=14)
         plt.ylabel('Accuracy (%)', fontsize=14)
         plt.title('Training and Test Accuracy', fontsize=20)
-        plt.savefig('Accuracy_' + str(epochs) + '.png')
+        plt.savefig('Accuracy_' + str(epochs) + str(lr) + '.png')
         plt.show()
     elif (label == 'loss'):
         plt.xlabel('Epoch', fontsize=14)
         plt.ylabel('Loss', fontsize=14)
         plt.title('Training and Test Loss', fontsize=20)
-        plt.savefig('Loss_' + str(epochs) + '.png')
+        plt.savefig('Loss_' + str(epochs) + str(lr) + '.png')
         plt.show()
     else:
         plt.xlabel('Learning rate', fontsize=14)
         plt.ylabel('Loss', fontsize=14)
         plt.title('Training loss and Test loss with learning rate', fontsize=20)
-        plt.savefig('Loss_lr_' + str(epochs) + '.png')
+        plt.savefig('Loss_lr_' + str(epochs) + str(lr) + '.png')
         plt.show()
 
 
@@ -112,13 +112,13 @@ def main():
     print(X_test.shape, y_test.shape, np.mean(X_test), np.std(X_test))
     print("The dataset is therefore properly normalised, as expected, but not yet one-hot encoded.")
 
-    net = LSTMModel()
-    net.apply(init_weights)
-    #train_losses, train_acc, test_losses, test_acc = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay, clip_val=clip_val)
-    params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=learning_rate, weight_decay=weight_decay, clip_val=clip_val)
-    plot(params['epochs'], params['train_loss'], params['test_loss'], 'loss')
-    plot(params['epochs'], params['train_accuracy'], params['test_accuracy'], 'accuracy')
-    plot(params['lr'], params['train_loss'], params['test_loss'], 'loss_lr')
+    for lr in learning_rate:
+        net = LSTMModel()
+        net.apply(init_weights)
+        params = train(net.float(), X_train, y_train, X_test, y_test, epochs=epochs, lr=lr, weight_decay=weight_decay, clip_val=clip_val)
+        plot(params['epochs'], params['train_loss'], params['test_loss'], 'loss', lr)
+        plot(params['epochs'], params['train_accuracy'], params['test_accuracy'], 'accuracy', lr)
+        plot(params['lr'], params['train_loss'], params['test_loss'], 'loss_lr', lr)
 
 
 main()
