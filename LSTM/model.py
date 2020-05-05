@@ -38,7 +38,7 @@ class LSTMModel(nn.Module):
         if bidir==2:
             x, hidden1 = self.lstm1(x, hidden)
             x, hidden2 = self.lstm2(x, hidden)
-            x = F.ReLU(x)
+            x = F.relu(x)
         else:
             x, hidden = self.lstm(x, hidden)
         x = self.dropout(x)
