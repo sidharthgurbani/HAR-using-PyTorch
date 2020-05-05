@@ -1,8 +1,9 @@
+import torch
 import numpy as np
 import torch.optim.lr_scheduler as lr_scheduler
 import config as cfg
 import sklearn.metrics as metrics
-import torch
+import matplotlib.pyplot as plt
 
 n_classes = cfg.n_classes
 n_epochs_hold = cfg.n_epochs_hold

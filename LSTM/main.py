@@ -1,6 +1,5 @@
 import torch
 import numpy as np
-import matplotlib.pyplot as plt
 from loadDataset import load_X, load_y
 from train import train
 from torch import nn
