@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from loadDataset import load_X, load_y
 from train import train
+from torch import nn
 from model import LSTMModel, init_weights
 from Functions import plot, evaluate
 import config as cfg
