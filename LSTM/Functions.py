@@ -80,9 +80,22 @@ def evaluate(net, X_test, y_test, criterion):
 
     test_h = tuple([each.data for each in test_h])
     output, test_h = net(inputs.float(), test_h)
+    test_loss = criterion(output, targets.long())
     top_p, top_class = output.topk(1, dim=1)
+    targets = targets.view(*top_class.shape).long()
+    equals = top_class == targets
+
     if (torch.cuda.is_available() ):
-            top_class, targets = top_class.cpu(), targets.long().cpu()
+            top_class, targets = top_class.cpu(), targets.cpu()
+
+    test_accuracy = torch.mean(equals.type(torch.FloatTensor))
+    test_f1score = metrics.f1_score(top_class, targets, average='macro')
+
+
+    print("Final loss is: {}".format(test_loss.item()))
+    print("Final accuracy is: {}". format(test_accuracy))
+    print("Final f1 score is: {}".format(test_f1score))
+
     print ("Output shape is: {} and target shape is: {}".format(top_class.shape, targets.shape))
     confusion_matrix = metrics.confusion_matrix(top_class, targets)
     print("---------Confusion Matrix--------")
