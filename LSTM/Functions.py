@@ -79,8 +79,10 @@ def evaluate(net, X_test, y_test, criterion):
     test_h = tuple([each.data for each in test_h])
     output, test_h = net(inputs.float(), test_h)
     top_p, top_class = output.topk(1, dim=1)
-    print ("Output shape is: {} and target shape is: {}".format(output.shape, targets.shape))
-    confusion_matrix = metrics.confusion_matrix(top_class, targets.long())
+    if (torch.cuda.is_available() ):
+            top_class, targets = inputs.cpu(), targets.long().cpu()
+    print ("Output shape is: {} and target shape is: {}".format(top_class.shape, targets.shape))
+    confusion_matrix = metrics.confusion_matrix(top_class, targets)
     print("---------Confusion Matrix--------")
     print(confusion_matrix)
     normalized_confusion_matrix = np.array(confusion_matrix, dtype=np.float32)/np.sum(confusion_matrix)*100
