@@ -79,7 +79,7 @@ def main():
         criterion = nn.CrossEntropyLoss()
         net = net.float()
         params = train(net, X_train, y_train, X_test, y_test, opt=opt, criterion=criterion, epochs=epochs, clip_val=clip_val)
-        evaluate(net, X_test, y_test, criterion)
+        evaluate(params['best_model'], X_test, y_test, criterion)
         plot(params['epochs'], params['train_loss'], params['test_loss'], 'loss', lr)
         plot(params['epochs'], params['train_accuracy'], params['test_accuracy'], 'accuracy', lr)
 

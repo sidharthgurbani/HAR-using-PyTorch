@@ -4,7 +4,7 @@ import sklearn.metrics as metrics
 from Functions import extract_batch_size
 import config as cfg
 
-def test(net, X_test, y_test, criterion, best_accuracy, test_batch=64):
+def test(net, X_test, y_test, criterion, best_accuracy, best_model, test_batch=64):
     
     net.eval()
     test_losses = []
@@ -45,7 +45,8 @@ def test(net, X_test, y_test, criterion, best_accuracy, test_batch=64):
     test_accuracy_avg = test_accuracy/(step-1)
     if (test_accuracy_avg > best_accuracy):
         best_accuracy = test_accuracy_avg
+        best_model = net
 
     net.train()
 
-    return test_loss_avg, test_f1_avg, test_accuracy_avg, best_accuracy
+    return test_loss_avg, test_f1_avg, test_accuracy_avg, best_accuracy, best_model

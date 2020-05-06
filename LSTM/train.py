@@ -20,11 +20,13 @@ def train(net, X_train, y_train, X_test, y_test, opt, criterion, epochs=100, cli
     net.train()
 
     best_accuracy = 0.0
+    best_model = None
     epoch_train_losses = []
     epoch_train_acc = []
     epoch_test_losses = []
     epoch_test_acc = []
     params = {
+        'best_model' : best_model,
         'epochs' : [],
         'train_loss' : [],
         'test_loss' : [],
@@ -80,7 +82,7 @@ def train(net, X_train, y_train, X_test, y_test, opt, criterion, epochs=100, cli
         print("Epoch: {}/{}...".format(epoch + 1, epochs),
               ' ' * 16 + "Train Loss: {:.4f}".format(train_loss_avg),
               "Train accuracy: {:.4f}...".format(train_accuracy_avg))
-        test_loss, test_f1score, test_accuracy, best_accuracy = test(net, X_test, y_test, criterion, best_accuracy, test_batch=len(X_test))
+        test_loss, test_f1score, test_accuracy, best_accuracy, best_model = test(net, X_test, y_test, criterion, best_accuracy, best_model, test_batch=len(X_test))
         epoch_test_losses.append(test_loss)
         epoch_test_acc.append(test_accuracy)
         if ((epoch+1) % 10 == 0):
@@ -90,6 +92,7 @@ def train(net, X_train, y_train, X_test, y_test, opt, criterion, epochs=100, cli
                   "Test F1: {:.4f}...".format(test_f1score))
 
     print('!!! Best accuracy is : {} !!!'.format(best_accuracy))
+    params['best_model'] = best_model
     params['train_loss'] = epoch_train_losses
     params['test_loss'] = epoch_test_losses
     params['train_accuracy'] = epoch_train_acc
