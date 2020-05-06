@@ -133,8 +133,8 @@ class Res_LSTMModel(nn.Module):
         out = self.dropout(out)
         out = out[-1]
         tens = out.view(out.shape[1], -1)
-        m = torch.mean(tens,1)
-        v = torch.var(tens,1)
+        m = Variable(torch.mean(tens,1), requires_grad=False)
+        v = Variable(torch.var(tens,1), requires_grad=False)
 
         out = F.batch_norm(out, m, v)
         out = self.fc(out)
