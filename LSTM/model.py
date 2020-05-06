@@ -109,7 +109,7 @@ class Bidir_LSTMModel(nn.Module):
 class Res_LSTMModel(nn.Module):
 
     def __init__(self, n_input=n_input, n_hidden=n_hidden, n_layers=n_layers,
-                 n_classes=n_classes, drop_prob=drop_prob, batch_size=batch_size):
+                 n_classes=n_classes, drop_prob=drop_prob):
         super(Res_LSTMModel, self).__init__()
 
         self.n_layers = n_layers
@@ -117,12 +117,8 @@ class Res_LSTMModel(nn.Module):
         self.n_classes = n_classes
         self.drop_prob = drop_prob
         self.n_input = n_input
-        self.batch_size = batch_size
-        if (self.eval()==True):
-            self.batch_size = 2947
         self.lstm1 = nn.LSTM(n_input, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
         self.lstm2 = nn.LSTM(n_hidden, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
-        self.bacthnorm = nn.BatchNorm1d(batch_size)
         self.fc = nn.Linear(n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
@@ -135,7 +131,11 @@ class Res_LSTMModel(nn.Module):
             out = F.relu(out)
             out += mid
         out = self.dropout(out)
-        out = self.bacthnorm(out)
+        tens = out.view(out.shape[0], out.shape[1], -1)
+        m = torch.mean(tens,1)
+        v = torch.var(tens,1)
+
+        out = F.bacthnorm(out, m, v)
         out = out[-1]
         out = self.fc(out)
         out = F.softmax(out)
