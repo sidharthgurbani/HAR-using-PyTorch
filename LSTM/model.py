@@ -124,7 +124,7 @@ class Res_LSTMModel(nn.Module):
         self.fc = nn.Linear(n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
-    def addResidualLayers(self, x):
+    def addResidualLayers(self, x, hidden):
         for i in range(n_residual_layers):
             mid = F.relu(x)
             x, hidden2 = self.lstm2(mid, hidden)
@@ -137,7 +137,7 @@ class Res_LSTMModel(nn.Module):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers):
-            x = self.addResidualLayers(x)
+            x = self.addResidualLayers(x, hidden)
             x = self.dropout(x)
         out = x[-1]
         out = self.fc(out)
@@ -178,7 +178,7 @@ class Res_Bidir_LSTMModel(nn.Module):
         self.fc = nn.Linear(n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
-    def addResidualLayers(self, x):
+    def addResidualLayers(self, x, hidden):
         for i in range(n_residual_layers):
             mid = F.relu(x)
             x, hidden2 = self.lstm2(mid, hidden)
@@ -191,7 +191,7 @@ class Res_Bidir_LSTMModel(nn.Module):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers):
-            x = self.addResidualLayers(x)
+            x = self.addResidualLayers(x, hidden)
             x = self.dropout(x)
         out = x[-1]
         out = self.fc(out)
