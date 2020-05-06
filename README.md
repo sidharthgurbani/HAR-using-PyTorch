@@ -1,2 +1,2 @@
 # HAR-using-PyTorch
-Implement Human Activity Recognition in PyTorch using LSTM and CNN Models
+Implement Human Activity Recognition in PyTorch using LSTM, Bidirectional-LSTM and Residual-LSTM Models on UCI HAR Dataset
