@@ -109,7 +109,7 @@ class Bidir_LSTMModel(nn.Module):
 class Res_LSTMModel(nn.Module):
 
     def __init__(self, n_input=n_input, n_hidden=n_hidden, n_layers=n_layers,
-                 n_classes=n_classes, drop_prob=drop_prob):
+                 n_classes=n_classes, drop_prob=drop_prob, batch_size=batch_size):
         super(Res_LSTMModel, self).__init__()
 
         self.n_layers = n_layers
@@ -117,7 +117,9 @@ class Res_LSTMModel(nn.Module):
         self.n_classes = n_classes
         self.drop_prob = drop_prob
         self.n_input = n_input
-
+        self.batch_size = batch_size
+        if (self.eval()==true):
+            self.batch_size = 2947
         self.lstm1 = nn.LSTM(n_input, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
         self.lstm2 = nn.LSTM(n_hidden, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
         self.bacthnorm = nn.BatchNorm1d(batch_size)
