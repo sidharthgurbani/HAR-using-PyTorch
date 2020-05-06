@@ -70,10 +70,10 @@ class Bidir_LSTMModel(nn.Module):
         self.drop_prob = drop_prob
         self.n_input = n_input
 
-        self.lstm1 = nn.LSTM(n_input, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
-        self.lstm2 = nn.LSTM(n_hidden, int(n_hidden/2), n_layers, bidirectional=True, dropout=self.drop_prob)
+        self.lstm1 = nn.LSTM(n_input, n_hidden, n_layers, bidirectional=True, dropout=self.drop_prob)
+        self.lstm2 = nn.LSTM(2*n_hidden, n_hidden, n_layers, bidirectional=True, dropout=self.drop_prob)
 
-        self.fc = nn.Linear(n_hidden, n_classes)
+        self.fc = nn.Linear(2*n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
     def forward(self, x, hidden):
@@ -84,7 +84,7 @@ class Bidir_LSTMModel(nn.Module):
             x = F.relu(x)
         x = self.dropout(x)
         out = x[-1]
-        out = out.contiguous().view(-1, self.n_hidden)
+        #out = out.contiguous().view(-1, 2*self.n_hidden)
         out = self.fc(out)
         out = F.softmax(out)
 
@@ -97,11 +97,11 @@ class Bidir_LSTMModel(nn.Module):
         weight = next(self.parameters()).data
         # if (train_on_gpu):
         if (torch.cuda.is_available() ):
-            hidden = (weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_().cuda(),
-                weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_().cuda())
+            hidden = (weight.new(2*self.n_layers, batch_size, self.n_hidden).zero_().cuda(),
+                weight.new(2*self.n_layers, batch_size, self.n_hidden).zero_().cuda())
         else:
-            hidden = (weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_(),
-                weight.new(2*self.n_layers, batch_size, int(self.n_hidden)).zero_())
+            hidden = (weight.new(2*self.n_layers, batch_size, self.n_hidden).zero_(),
+                weight.new(2*self.n_layers, batch_size, self.n_hidden).zero_())
 
         return hidden
 
