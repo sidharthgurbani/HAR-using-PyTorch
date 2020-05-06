@@ -47,7 +47,7 @@ Bidir_LSTM1 = {
 }
 
 # Bidirectional LSTM with 2 layers Architecture:
-Bidir_LSTM1 = {
+Bidir_LSTM2 = {
 	'name' : 'Bidir_LSTM2',
 	'bidir' : True,
 	'clip_val' : 10,
