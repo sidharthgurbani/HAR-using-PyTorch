@@ -120,7 +120,7 @@ class Res_LSTMModel(nn.Module):
 
         self.lstm1 = nn.LSTM(n_input, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
         self.lstm2 = nn.LSTM(n_hidden, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
-
+        self.bacthnorm = nn.BatchNorm1d(batch_size)
         self.fc = nn.Linear(n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
@@ -133,6 +133,7 @@ class Res_LSTMModel(nn.Module):
             out = F.relu(out)
             out += mid
         out = self.dropout(out)
+        out = self.bacthnorm(out)
         out = out[-1]
         out = self.fc(out)
         out = F.softmax(out)
