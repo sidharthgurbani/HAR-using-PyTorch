@@ -3,6 +3,7 @@ import numpy as np
 import sklearn.metrics as metrics
 from Functions import extract_batch_size
 import config as cfg
+import copy
 
 def test(net, X_test, y_test, criterion, best_accuracy, best_model, test_batch=64):
     
@@ -45,7 +46,7 @@ def test(net, X_test, y_test, criterion, best_accuracy, best_model, test_batch=6
     test_accuracy_avg = test_accuracy/(step-1)
     if (test_accuracy_avg > best_accuracy):
         best_accuracy = test_accuracy_avg
-        best_model = net
+        best_model = copy.deepcopy(net)
 
     net.train()
 
