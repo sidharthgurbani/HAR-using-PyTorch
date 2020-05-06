@@ -2,13 +2,6 @@
 
 # Configrations for different architectures explained below:
 
-Architecture = {
-	'LSTM1' : LSTM1,
-	'LSTM2' : LSTM2,
-	'Bidir_LSTM1' : Bidir_LSTM1,
-	'Bidir_LSTM2' : Bidir_LSTM2
-}
-
 # Baseline LSTM Architecture:
 LSTM1 = {
 	'name' : 'LSTM1',
@@ -35,7 +28,6 @@ LSTM2 = {
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
 	'n_highway_layers' : 2,
-	'model' : LSTMModel(),
 	'diag' : 'Architecure chosen is baseline LSTM with 2 layers',
 	'save_file' : 'results_lstm2.txt'
 }
@@ -50,7 +42,6 @@ Bidir_LSTM1 = {
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
 	'n_highway_layers' : 1,
-	'model' : Bidir_LSTMModel(),
 	'diag' : 'Architecure chosen is bidirectional LSTM with 1 layer',
 	'save_file' : 'results_bidir_lstm1.txt'
 }
@@ -66,9 +57,15 @@ Bidir_LSTM1 = {
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
 	'n_highway_layers' : 2,
-	'model' : Bidir_LSTMModel(),
 	'diag' : 'Architecure chosen is bidirectional LSTM with 2 layers',
 	'save_file' : 'results_bidir_lstm2.txt'
+}
+
+Architecture = {
+	'LSTM1' : LSTM1,
+	'LSTM2' : LSTM2,
+	'Bidir_LSTM1' : Bidir_LSTM1,
+	'Bidir_LSTM2' : Bidir_LSTM2
 }
 
 
