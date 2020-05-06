@@ -135,7 +135,7 @@ class Res_LSTMModel(nn.Module):
         m = torch.mean(tens,1)
         v = torch.var(tens,1)
 
-        out = F.bacth_norm(out, m, v)
+        out = F.batch_norm(out, m, v)
         out = out[-1]
         out = self.fc(out)
         out = F.softmax(out)
