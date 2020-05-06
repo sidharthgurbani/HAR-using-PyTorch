@@ -25,8 +25,6 @@ def extract_batch_size(_train, step, batch_size):
     return batch
 
 
-# %%
-
 # Define to function to create one-hot encoding of output labels
 
 def one_hot_vector(y_, n_classes=n_classes):
@@ -79,7 +77,7 @@ def evaluate(net, X_test, y_test, criterion):
             inputs, targets = inputs.cuda(), targets.cuda()
 
     test_h = tuple([each.data for each in test_h])
-    output, test_h = net(inputs.float(), test_h)
+    output = net(inputs.float(), test_h)
     test_loss = criterion(output, targets.long())
     top_p, top_class = output.topk(1, dim=1)
     targets = targets.view(*top_class.shape).long()

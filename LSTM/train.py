@@ -53,7 +53,7 @@ def train(net, X_train, y_train, X_test, y_test, opt, criterion, epochs=100, cli
             h = tuple([each.data for each in h])
             opt.zero_grad()
 
-            output, h = net(inputs.float(), h)
+            output = net(inputs.float(), h)
             # print("lenght of inputs is {} and target value is {}".format(inputs.size(), targets.size()))
             train_loss = criterion(output, targets.long())
             train_losses.append(train_loss.item())

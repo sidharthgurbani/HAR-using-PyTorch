@@ -25,7 +25,7 @@ def test(net, X_test, y_test, criterion, test_batch=64):
 
         test_h = tuple([each.data for each in test_h])
         #print("Size of inputs is: {}".format(X_test.shape))
-        output, test_h = net(inputs.float(), test_h)
+        output = net(inputs.float(), test_h)
         test_loss = criterion(output, targets.long())
         test_losses.append(test_loss.item())
 

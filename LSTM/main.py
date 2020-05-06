@@ -3,7 +3,7 @@ import numpy as np
 from loadDataset import load_X, load_y
 from train import train
 from torch import nn
-from model import LSTMModel, init_weights
+from model import init_weights
 from Functions import plot, evaluate
 import config as cfg
 import data_file as df
@@ -24,6 +24,7 @@ epochs = cfg.n_epochs
 learning_rate = cfg.learning_rate
 weight_decay = cfg.weight_decay
 clip_val = cfg.clip_val
+diag = cfg.diag
 
 # Training
 # check if GPU is available
@@ -59,8 +60,9 @@ def main():
     print("The dataset is therefore properly normalised, as expected, but not yet one-hot encoded.")
 
     for lr in learning_rate:
-        net = LSTMModel()
+        net = cfg.model # This is set in config.py
         net.apply(init_weights)
+        print(diag)
         opt = torch.optim.Adam(net.parameters(), lr=lr)
         criterion = nn.CrossEntropyLoss()
         net = net.float()
