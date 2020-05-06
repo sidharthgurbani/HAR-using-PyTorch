@@ -36,7 +36,7 @@ Bidir_LSTM1 = {
 	'name' : 'Bidir_LSTM1',
 	'bidir' : True,
 	'clip_val' : 30,
-	'drop_prob' : 0.5,
+	'drop_prob' : 0.3,
 	'n_epochs_hold' : 100,
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
@@ -61,11 +61,26 @@ Bidir_LSTM2 = {
 	'save_file' : 'results_bidir_lstm2.txt'
 }
 
+Res_LSTM = {
+	'name' : 'Res_LSTM2',
+	'bidir' : False,
+	'clip_val' : 10,
+	'drop_prob' : 0.5,
+	'n_epochs_hold' : 100,
+	'n_layers' : 2,
+	'learning_rate' : [0.0015],
+	'weight_decay' : 0.001,
+	'n_highway_layers' : 2,
+	'diag' : 'Architecure chosen is Residual LSTM with 2 layers',
+	'save_file' : 'results_res_lstm1.txt'
+}
+
 Architecture = {
 	'LSTM1' : LSTM1,
 	'LSTM2' : LSTM2,
 	'Bidir_LSTM1' : Bidir_LSTM1,
-	'Bidir_LSTM2' : Bidir_LSTM2
+	'Bidir_LSTM2' : Bidir_LSTM2,
+	'Res_LSTM' : Res_LSTM
 }
 
 
