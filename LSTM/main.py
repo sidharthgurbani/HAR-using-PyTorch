@@ -3,7 +3,7 @@ import numpy as np
 from loadDataset import load_X, load_y
 from train import train
 from torch import nn
-from model import init_weights
+from model import LSTMModel, Bidir_LSTMModel, init_weights
 from Functions import plot, evaluate
 import config as cfg
 import data_file as df
@@ -60,7 +60,11 @@ def main():
     print("The dataset is therefore properly normalised, as expected, but not yet one-hot encoded.")
 
     for lr in learning_rate:
-        net = cfg.model # This is set in config.py
+        arch = cfg.arch
+        if arch['name'] == 'LSTM1' or arch['name'] == LSTM2:
+            net = LSTMModel()
+        else:
+            net = Bidir_LSTMModel()
         net.apply(init_weights)
         print(diag)
         opt = torch.optim.Adam(net.parameters(), lr=lr)

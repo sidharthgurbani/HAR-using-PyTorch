@@ -1,5 +1,3 @@
-from model import LSTMModel, Bidir_LSTMModel
-
 # This is the config file which holds the configuration values for different architectures
 
 # Choose what architecure you want here:
@@ -41,6 +39,7 @@ Architecture = {
 
 # Baseline LSTM Architecture:
 LSTM1 = {
+	'name' : 'LSTM1',
 	'bidir' : False,
 	'clip_val' : 10,
 	'drop_prob' : 0.5,
@@ -49,13 +48,13 @@ LSTM1 = {
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
 	'n_highway_layers' : 1,
-	'model' : LSTMModel(),
 	'diag' : 'Architecure chosen is baseline LSTM with 1 layer',
 	'save_file' : 'results_lstm1.txt'
 }
 
 # Baseline LSTM with 2 layers Architecture:
 LSTM2 = {
+	'name' : 'LSTM2',
 	'bidir' : False,
 	'clip_val' : 10,
 	'drop_prob' : 0.5,
@@ -70,6 +69,7 @@ LSTM2 = {
 }
 # Bidirectional LSTM Architecture:
 Bidir_LSTM1 = {
+	'name' : 'Bidir_LSTM1',
 	'bidir' : True,
 	'clip_val' : 10,
 	'drop_prob' : 0.5,
@@ -85,6 +85,7 @@ Bidir_LSTM1 = {
 
 # Bidirectional LSTM with 2 layers Architecture:
 Bidir_LSTM1 = {
+	'name' : 'Bidir_LSTM2',
 	'bidir' : True,
 	'clip_val' : 10,
 	'drop_prob' : 0.5,
