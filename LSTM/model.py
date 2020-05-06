@@ -182,10 +182,10 @@ class Res_Bidir_LSTMModel(nn.Module):
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers-1):
             mid = F.relu(x)
-            out, hidden2 = self.lstm2(mid, hidden)
-            out = F.relu(out)
-            out += mid
-        out = self.dropout(out)
+            x, hidden2 = self.lstm2(mid, hidden)
+            x = F.relu(x)
+            x += mid
+        out = self.dropout(x)
         out = out[-1]
         out = self.fc(out)
         out = F.softmax(out)
