@@ -12,7 +12,8 @@ LSTM1 = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_highway_layers' : 1,
+	'n_residual_layers' : 0,
+	'n_highway_layers' : 0,
 	'diag' : 'Architecure chosen is baseline LSTM with 1 layer',
 	'save_file' : 'results_lstm1.txt'
 }
@@ -27,7 +28,8 @@ LSTM2 = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_highway_layers' : 2,
+	'n_residual_layers' : 0,
+	'n_highway_layers' : 1,
 	'diag' : 'Architecure chosen is baseline LSTM with 2 layers',
 	'save_file' : 'results_lstm2.txt'
 }
@@ -41,7 +43,8 @@ Bidir_LSTM1 = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_highway_layers' : 1,
+	'n_residual_layers' : 0,
+	'n_highway_layers' : 0,
 	'diag' : 'Architecure chosen is bidirectional LSTM with 1 layer',
 	'save_file' : 'results_bidir_lstm1.txt'
 }
@@ -56,7 +59,8 @@ Bidir_LSTM2 = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_highway_layers' : 2,
+	'n_residual_layers' : 0,
+	'n_highway_layers' : 1,
 	'diag' : 'Architecure chosen is bidirectional LSTM with 2 layers',
 	'save_file' : 'results_bidir_lstm2.txt'
 }
@@ -70,7 +74,8 @@ Res_LSTM = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_highway_layers' : 3,
+	'n_residual_layers' : 2,
+	'n_highway_layers' : 1,
 	'diag' : 'Architecure chosen is Residual LSTM with 2 layers',
 	'save_file' : 'results_res_lstm1.txt'
 }
@@ -84,7 +89,8 @@ Res_Bidir_LSTM = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_highway_layers' : 2,
+	'n_residual_layers' : 2,
+	'n_highway_layers' : 1,
 	'diag' : 'Architecure chosen is Residual Bidirectional LSTM with 2 layers',
 	'save_file' : 'results_res_lstm1.txt'
 }
@@ -111,6 +117,7 @@ n_layers = arch['n_layers']
 learning_rate = arch['learning_rate']
 weight_decay = arch['weight_decay']
 n_highway_layers = arch['n_highway_layers']
+n_residual_layers = arch['n_residual_layers']
 
 # These are for diagnostics
 diag = arch['diag']

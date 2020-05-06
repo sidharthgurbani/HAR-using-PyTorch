@@ -11,6 +11,7 @@ drop_prob = cfg.drop_prob
 n_layers = cfg.n_layers
 batch_size = cfg.batch_size
 bidir = cfg.bidir
+n_residual_layers = cfg.n_residual_layers
 n_highway_layers = cfg.n_highway_layers
 
 class LSTMModel(nn.Module):
@@ -33,7 +34,7 @@ class LSTMModel(nn.Module):
     def forward(self, x, hidden):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
-        for i in range(n_highway_layers-1):
+        for i in range(n_highway_layers):
             #x = F.relu(x)
             x, hidden2 = self.lstm2(x, hidden)
         x = self.dropout(x)
@@ -80,7 +81,7 @@ class Bidir_LSTMModel(nn.Module):
     def forward(self, x, hidden):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
-        for i in range(n_highway_layers-1):
+        for i in range(n_highway_layers):
             x, hidden2 = self.lstm2(x, hidden)
             x = F.relu(x)
         x = self.dropout(x)
@@ -123,22 +124,22 @@ class Res_LSTMModel(nn.Module):
         self.fc = nn.Linear(n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
+    def addResidualLayers(self, x):
+        for i in range(n_residual_layers):
+            mid = F.relu(x)
+            x, hidden2 = self.lstm2(mid, hidden)
+            x = F.relu(x)
+            x += mid
+
+        return x
+
     def forward(self, x, hidden):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
-        for i in range(n_highway_layers-1):
-            mid = F.relu(x)
-            out, hidden2 = self.lstm2(mid, hidden)
-            out = F.relu(out)
-            out += mid
-        out = self.dropout(out)
-        out = out[-1]
-        # tens = out.view(out.shape[0], -1)
-        # #print("Shape of ten is {}".format(tens.shape))
-        # m = Variable(torch.mean(tens,0), requires_grad=False)
-        # v = Variable(torch.var(tens,0), requires_grad=False)
-
-        # out = F.batch_norm(out, m, v)
+        for i in range(n_highway_layers):
+            x = addResidualLayers(x)
+            x = self.dropout(x)
+        out = x[-1]
         out = self.fc(out)
         out = F.softmax(out)
 
@@ -177,16 +178,22 @@ class Res_Bidir_LSTMModel(nn.Module):
         self.fc = nn.Linear(n_hidden, n_classes)
         self.dropout = nn.Dropout(drop_prob)
 
-    def forward(self, x, hidden):
-        x = x.permute(1, 0, 2)
-        x, hidden1 = self.lstm1(x, hidden)
-        for i in range(n_highway_layers-1):
+    def addResidualLayers(self, x):
+        for i in range(n_residual_layers):
             mid = F.relu(x)
             x, hidden2 = self.lstm2(mid, hidden)
             x = F.relu(x)
             x += mid
-        out = self.dropout(x)
-        out = out[-1]
+
+        return x
+
+    def forward(self, x, hidden):
+        x = x.permute(1, 0, 2)
+        x, hidden1 = self.lstm1(x, hidden)
+        for i in range(n_highway_layers):
+            x = addResidualLayers(x)
+            x = self.dropout(x)
+        out = x[-1]
         out = self.fc(out)
         out = F.softmax(out)
 
