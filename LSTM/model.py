@@ -133,12 +133,12 @@ class Res_LSTMModel(nn.Module):
             out += mid
         out = self.dropout(out)
         out = out[-1]
-        tens = out.view(out.shape[0], -1)
-        #print("Shape of ten is {}".format(tens.shape))
-        m = Variable(torch.mean(tens,0), requires_grad=False)
-        v = Variable(torch.var(tens,0), requires_grad=False)
+        # tens = out.view(out.shape[0], -1)
+        # #print("Shape of ten is {}".format(tens.shape))
+        # m = Variable(torch.mean(tens,0), requires_grad=False)
+        # v = Variable(torch.var(tens,0), requires_grad=False)
 
-        out = F.batch_norm(out, m, v)
+        # out = F.batch_norm(out, m, v)
         out = self.fc(out)
         out = F.softmax(out)
 
