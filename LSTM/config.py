@@ -90,7 +90,7 @@ Res_Bidir_LSTM = {
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
 	'n_residual_layers' : 2,
-	'n_highway_layers' : 1,
+	'n_highway_layers' : 2,
 	'diag' : 'Architecure chosen is Residual Bidirectional LSTM with 2 layers',
 	'save_file' : 'results_res_lstm1.txt'
 }
@@ -106,7 +106,7 @@ Architecture = {
 
 
 # Choose what architecure you want here:
-arch = Architecture['Res_LSTM']
+arch = Architecture['Res_Bidir_LSTM']
 
 # This will set the values according to that architecture
 bidir = arch['bidir']
