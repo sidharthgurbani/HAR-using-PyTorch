@@ -9,7 +9,7 @@ weight_decay = 0.001
 bidir = 0
 clip_val = 10
 
-batch_size = 64
+batch_size = 32
 drop_prob = 0.5
 n_epochs = 100
 n_layers = 2
