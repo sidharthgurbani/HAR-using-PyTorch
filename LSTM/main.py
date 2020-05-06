@@ -3,7 +3,7 @@ import numpy as np
 from loadDataset import load_X, load_y
 from train import train
 from torch import nn
-from model import LSTMModel, Bidir_LSTMModel, init_weights
+from model import LSTMModel, Bidir_LSTMModel, Res_LSTMModel, init_weights
 from Functions import plot, evaluate
 import config as cfg
 import data_file as df
@@ -63,6 +63,8 @@ def main():
         arch = cfg.arch
         if arch['name'] == 'LSTM1' or arch['name'] == 'LSTM2':
             net = LSTMModel()
+        elif arch['name'] == 'Res_LSTM':
+            net = Res_LSTMModel()
         else:
             net = Bidir_LSTMModel()
         net.apply(init_weights)

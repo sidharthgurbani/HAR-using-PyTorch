@@ -128,11 +128,12 @@ class Res_LSTMModel(nn.Module):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers-1):
-            x, hidden2 = self.lstm2(x, hidden)
-            x = F.relu(x)
-        x = self.dropout(x)
-        out = x[-1]
-        #out = out.contiguous().view(-1, 2*self.n_hidden)
+            mid = F.relu(x)
+            out, hidden2 = self.lstm2(mid, hidden)
+            out = F.relu(out)
+            out += mid
+        out = self.dropout(out)
+        out = out[-1]
         out = self.fc(out)
         out = F.softmax(out)
 

@@ -62,7 +62,7 @@ Bidir_LSTM2 = {
 }
 
 Res_LSTM = {
-	'name' : 'Res_LSTM2',
+	'name' : 'Res_LSTM',
 	'bidir' : False,
 	'clip_val' : 10,
 	'drop_prob' : 0.5,
@@ -85,7 +85,7 @@ Architecture = {
 
 
 # Choose what architecure you want here:
-arch = Architecture['Bidir_LSTM1']
+arch = Architecture['Res_LSTM']
 
 # This will set the values according to that architecture
 bidir = arch['bidir']
