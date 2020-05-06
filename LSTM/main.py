@@ -61,7 +61,7 @@ def main():
 
     for lr in learning_rate:
         arch = cfg.arch
-        if arch['name'] == 'LSTM1' or arch['name'] == LSTM2:
+        if arch['name'] == 'LSTM1' or arch['name'] == 'LSTM2':
             net = LSTMModel()
         else:
             net = Bidir_LSTMModel()
