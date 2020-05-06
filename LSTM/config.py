@@ -35,7 +35,7 @@ LSTM2 = {
 Bidir_LSTM1 = {
 	'name' : 'Bidir_LSTM1',
 	'bidir' : True,
-	'clip_val' : 10,
+	'clip_val' : 20,
 	'drop_prob' : 0.5,
 	'n_epochs_hold' : 100,
 	'n_layers' : 2,
