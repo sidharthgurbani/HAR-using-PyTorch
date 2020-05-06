@@ -33,8 +33,8 @@ class LSTMModel(nn.Module):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers-1):
-            x, hidden2 = self.lstm2(x, hidden)
             x = F.relu(x)
+            x, hidden2 = self.lstm2(x, hidden)
         x = self.dropout(x)
         out = x[-1]
         out = out.contiguous().view(-1, self.n_hidden)
