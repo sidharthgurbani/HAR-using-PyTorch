@@ -197,7 +197,7 @@ class Res_Bidir_LSTMModel(nn.Module):
             hidden = (weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_().cuda(),
                 weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_().cuda())
         else:
-            hidden = (weight.new(2*self.n_layers, batch_size, int(self.n_hidden.2)).zero_(),
+            hidden = (weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_(),
                 weight.new(2*self.n_layers, batch_size, int(self.n_hidden/2)).zero_())
 
         return hidden
