@@ -138,7 +138,7 @@ class Res_LSTMModel(nn.Module):
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers):
             x = self.addResidualLayers(x, hidden)
-            x = self.dropout(x)
+        x = self.dropout(x)
         out = x[-1]
         out = self.fc(out)
         out = F.softmax(out)
