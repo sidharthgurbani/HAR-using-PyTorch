@@ -74,8 +74,8 @@ Res_LSTM = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_residual_layers' : 2,
-	'n_highway_layers' : 2,
+	'n_residual_layers' : 3,
+	'n_highway_layers' : 3,
 	'diag' : 'Architecure chosen is Residual LSTM with 2 layers',
 	'save_file' : 'results_res_lstm1.txt'
 }
