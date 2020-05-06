@@ -158,7 +158,7 @@ class Res_Bidir_LSTMModel(nn.Module):
 
     def __init__(self, n_input=n_input, n_hidden=n_hidden, n_layers=n_layers,
                  n_classes=n_classes, drop_prob=drop_prob):
-        super(Res_LSTMModel, self).__init__()
+        super(Res_Bidir_LSTMModel, self).__init__()
 
         self.n_layers = n_layers
         self.n_hidden = n_hidden
