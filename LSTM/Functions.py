@@ -10,7 +10,7 @@ LABELS = df.LABELS
 n_classes = cfg.n_classes
 n_epochs_hold = cfg.n_epochs_hold
 n_epochs_decay = cfg.batch_size - n_epochs_hold
-
+epochs = cfg.n_epochs
 # Define function to generate batches of a particular size
 
 def extract_batch_size(_train, step, batch_size):
