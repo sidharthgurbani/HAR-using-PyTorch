@@ -118,7 +118,7 @@ class Res_LSTMModel(nn.Module):
         self.drop_prob = drop_prob
         self.n_input = n_input
         self.batch_size = batch_size
-        if (self.eval()==true):
+        if (self.eval()==True):
             self.batch_size = 2947
         self.lstm1 = nn.LSTM(n_input, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
         self.lstm2 = nn.LSTM(n_hidden, n_hidden, n_layers, bidirectional=False, dropout=self.drop_prob)
