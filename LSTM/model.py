@@ -2,6 +2,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 import config as cfg
+from torch.autograd import Variable
 
 n_classes = cfg.n_classes
 n_input = cfg.n_input
@@ -132,7 +133,7 @@ class Res_LSTMModel(nn.Module):
             out += mid
         out = self.dropout(out)
         out = out[-1]
-        tens = out.view(out.shape[1], -1)
+        tens = out.view(out.shape[0], -1)
         m = Variable(torch.mean(tens,1), requires_grad=False)
         v = Variable(torch.var(tens,1), requires_grad=False)
 
