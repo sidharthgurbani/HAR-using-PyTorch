@@ -131,12 +131,12 @@ class Res_LSTMModel(nn.Module):
             out = F.relu(out)
             out += mid
         out = self.dropout(out)
-        tens = out.view(out.shape[0], out.shape[1], -1)
+        out = out[-1]
+        tens = out.view(out.shape[1], -1)
         m = torch.mean(tens,1)
         v = torch.var(tens,1)
 
         out = F.batch_norm(out, m, v)
-        out = out[-1]
         out = self.fc(out)
         out = F.softmax(out)
 
