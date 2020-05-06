@@ -106,7 +106,7 @@ Architecture = {
 
 
 # Choose what architecure you want here:
-arch = Architecture['Res_Bidir_LSTM']
+arch = Architecture['Res_LSTM']
 
 # This will set the values according to that architecture
 bidir = arch['bidir']
@@ -128,4 +128,4 @@ n_classes = 6
 n_input = 9
 n_hidden = 32
 batch_size = 64
-n_epochs = 120
+n_epochs = 150
