@@ -137,7 +137,7 @@ class Res_LSTMModel(nn.Module):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers):
-            x = addResidualLayers(x)
+            x = self.addResidualLayers(x)
             x = self.dropout(x)
         out = x[-1]
         out = self.fc(out)
@@ -191,7 +191,7 @@ class Res_Bidir_LSTMModel(nn.Module):
         x = x.permute(1, 0, 2)
         x, hidden1 = self.lstm1(x, hidden)
         for i in range(n_highway_layers):
-            x = addResidualLayers(x)
+            x = self.addResidualLayers(x)
             x = self.dropout(x)
         out = x[-1]
         out = self.fc(out)
