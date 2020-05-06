@@ -1,33 +1,5 @@
 # This is the config file which holds the configuration values for different architectures
 
-# Choose what architecure you want here:
-arch = Architecture['LSTM1']
-
-# This will choose the model also accordingly:
-model = arch['model']
-
-# This will set the values according to that architecture
-bidir = arch['bidir']
-clip_val = arch['clip_val']
-drop_prob = arch['drop_prob']
-n_epochs_hold = arch['n_epochs_hold']
-n_layers = arch['n_layers']
-learning_rate = arch['learning_rate']
-weight_decay = arch['weight_decay']
-n_highway_layers = arch['n_highway_layers']
-
-# These are for diagnostics
-diag = arch['diag']
-save_file = arch['save_file']
-
-# This will stay common for all architectures:
-n_classes = 6
-n_input = 9
-n_hidden = 32
-batch_size = 64
-n_epochs = 100
-
-
 # Configrations for different architectures explained below:
 
 Architecture = {
@@ -98,3 +70,31 @@ Bidir_LSTM1 = {
 	'diag' : 'Architecure chosen is bidirectional LSTM with 2 layers',
 	'save_file' : 'results_bidir_lstm2.txt'
 }
+
+
+# Choose what architecure you want here:
+arch = Architecture['LSTM1']
+
+# This will choose the model also accordingly:
+model = arch['model']
+
+# This will set the values according to that architecture
+bidir = arch['bidir']
+clip_val = arch['clip_val']
+drop_prob = arch['drop_prob']
+n_epochs_hold = arch['n_epochs_hold']
+n_layers = arch['n_layers']
+learning_rate = arch['learning_rate']
+weight_decay = arch['weight_decay']
+n_highway_layers = arch['n_highway_layers']
+
+# These are for diagnostics
+diag = arch['diag']
+save_file = arch['save_file']
+
+# This will stay common for all architectures:
+n_classes = 6
+n_input = 9
+n_hidden = 32
+batch_size = 64
+n_epochs = 100
