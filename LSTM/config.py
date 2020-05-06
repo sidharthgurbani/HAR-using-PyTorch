@@ -33,67 +33,67 @@ n_epochs = 100
 # Configrations for different architectures explained below:
 
 Architecture = {
-	'LSTM1' = LSTM1,
-	'LSTM2' = LSTM2,
-	'Bidir_LSTM1' = Bidir_LSTM1,
-	'Bidir_LSTM2' = Bidir_LSTM2
+	'LSTM1' : LSTM1,
+	'LSTM2' : LSTM2,
+	'Bidir_LSTM1' : Bidir_LSTM1,
+	'Bidir_LSTM2' : Bidir_LSTM2
 }
 
 # Baseline LSTM Architecture:
 LSTM1 = {
-	'bidir' = False,
-	'clip_val' = 10,
-	'drop_prob' = 0.5,
-	'n_epochs_hold' = 100,
-	'n_layers' = 2,
-	'learning_rate' = [0.0015],
-	'weight_decay' = 0.001,
-	'n_highway_layers' = 1,
-	'model' = LSTMModel(),
-	'diag' = 'Architecure chosen is baseline LSTM with 1 layer',
-	'save_file' = 'results_lstm1.txt'
+	'bidir' : False,
+	'clip_val' : 10,
+	'drop_prob' : 0.5,
+	'n_epochs_hold' : 100,
+	'n_layers' : 2,
+	'learning_rate' : [0.0015],
+	'weight_decay' : 0.001,
+	'n_highway_layers' : 1,
+	'model' : LSTMModel(),
+	'diag' : 'Architecure chosen is baseline LSTM with 1 layer',
+	'save_file' : 'results_lstm1.txt'
 }
 
 # Baseline LSTM with 2 layers Architecture:
 LSTM2 = {
-	'bidir' = False,
-	'clip_val' = 10,
-	'drop_prob' = 0.5,
-	'n_epochs_hold' = 100,
-	'n_layers' = 2,
-	'learning_rate' = [0.0015],
-	'weight_decay' = 0.001,
-	'n_highway_layers' = 2,
-	'model' = LSTMModel(),
-	'diag' = 'Architecure chosen is baseline LSTM with 2 layers',
-	'save_file' = 'results_lstm1.txt'
+	'bidir' : False,
+	'clip_val' : 10,
+	'drop_prob' : 0.5,
+	'n_epochs_hold' : 100,
+	'n_layers' : 2,
+	'learning_rate' : [0.0015],
+	'weight_decay' : 0.001,
+	'n_highway_layers' : 2,
+	'model' : LSTMModel(),
+	'diag' : 'Architecure chosen is baseline LSTM with 2 layers',
+	'save_file' : 'results_lstm2.txt'
 }
 # Bidirectional LSTM Architecture:
 Bidir_LSTM1 = {
-	'bidir' = True,
-	'clip_val' = 10,
-	'drop_prob' = 0.5,
-	'n_epochs_hold' = 100,
-	'n_layers' = 2,
-	'learning_rate' = [0.0015],
-	'weight_decay' = 0.001,
-	'n_highway_layers' = 1,
-	'model' = Bidir_LSTMModel(),
-	'diag' = 'Architecure chosen is bidirectional LSTM with 1 layer',
-	'save_file' = 'results_lstm1.txt'
+	'bidir' : True,
+	'clip_val' : 10,
+	'drop_prob' : 0.5,
+	'n_epochs_hold' : 100,
+	'n_layers' : 2,
+	'learning_rate' : [0.0015],
+	'weight_decay' : 0.001,
+	'n_highway_layers' : 1,
+	'model' : Bidir_LSTMModel(),
+	'diag' : 'Architecure chosen is bidirectional LSTM with 1 layer',
+	'save_file' : 'results_bidir_lstm1.txt'
 }
 
 # Bidirectional LSTM with 2 layers Architecture:
-Bidir_LSTM2 = {
-	'bidir' = True,
-	'clip_val' = 10,
-	'drop_prob' = 0.5,
-	'n_epochs_hold' = 100,
-	'n_layers' = 2,
-	'learning_rate' = [0.0015],
-	'weight_decay' = 0.001,
-	'n_highway_layers' = 2,
-	'model' = Bidir_LSTMModel(),
-	'diag' = 'Architecure chosen is bidirectional LSTM with 2 layers',
-	'save_file' = 'results_lstm1.txt'
+Bidir_LSTM1 = {
+	'bidir' : True,
+	'clip_val' : 10,
+	'drop_prob' : 0.5,
+	'n_epochs_hold' : 100,
+	'n_layers' : 2,
+	'learning_rate' : [0.0015],
+	'weight_decay' : 0.001,
+	'n_highway_layers' : 2,
+	'model' : Bidir_LSTMModel(),
+	'diag' : 'Architecure chosen is bidirectional LSTM with 2 layers',
+	'save_file' : 'results_bidir_lstm2.txt'
 }
