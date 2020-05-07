@@ -106,7 +106,7 @@ Architecture = {
 
 
 # Choose what architecure you want here:
-arch = Architecture['Bidir_LSTM1']
+arch = Architecture['Res_LSTM']
 
 # This will set the values according to that architecture
 bidir = arch['bidir']
