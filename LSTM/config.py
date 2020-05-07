@@ -83,7 +83,7 @@ Res_LSTM = {
 Res_Bidir_LSTM = {
 	'name' : 'Res_Bidir_LSTM',
 	'bidir' : True,
-	'clip_val' : 10,
+	'clip_val' : 20,
 	'drop_prob' : 0.5,
 	'n_epochs_hold' : 100,
 	'n_layers' : 2,
