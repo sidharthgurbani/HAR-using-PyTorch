@@ -94,7 +94,6 @@ def evaluate(net, X_test, y_test, criterion):
     print("Final accuracy is: {}". format(test_accuracy))
     print("Final f1 score is: {}".format(test_f1score))
 
-    print ("Output shape is: {} and target shape is: {}".format(top_class.shape, targets.shape))
     confusion_matrix = metrics.confusion_matrix(top_class, targets)
     print("---------Confusion Matrix--------")
     print(confusion_matrix)
