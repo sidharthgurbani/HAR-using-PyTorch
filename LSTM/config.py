@@ -74,8 +74,8 @@ Res_LSTM = {
 	'n_layers' : 2,
 	'learning_rate' : [0.0015],
 	'weight_decay' : 0.001,
-	'n_residual_layers' : 3,
-	'n_highway_layers' : 3,
+	'n_residual_layers' : 2,
+	'n_highway_layers' : 2,
 	'diag' : 'Architecure chosen is Residual LSTM with 2 layers',
 	'save_file' : 'results_res_lstm1.txt'
 }
@@ -106,7 +106,7 @@ Architecture = {
 
 
 # Choose what architecure you want here:
-arch = Architecture['Res_Bidir_LSTM']
+arch = Architecture['LSTM1']
 
 # This will set the values according to that architecture
 bidir = arch['bidir']
@@ -128,4 +128,4 @@ n_classes = 6
 n_input = 9
 n_hidden = 32
 batch_size = 64
-n_epochs = 120
+n_epochs = 100
