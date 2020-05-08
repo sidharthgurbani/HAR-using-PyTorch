@@ -182,8 +182,8 @@ class Res_Bidir_LSTMModel(nn.Module):
         for i in range(n_residual_layers):
             mid = F.relu(x)
             x, hidden2 = self.lstm2(mid, hidden)
+            x = F.relu(x)
             x += mid
-        x = F.relu(x)
         return x
 
     def forward(self, x, hidden):
